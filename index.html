@@ -47,8 +47,8 @@ https://templatemo.com/tm-531-reflux
             <nav class="main-nav" role="navigation">
               <ul class="main-menu">
                 <li><a href="#section1">Bit About Me</a></li>
-                <li><a href="#section3">Current Work</a></li>
-                <li><a href="#section2">Thing I like to do</a></li>
+                <li><a href="#section2">Current Work</a></li>
+                <li><a href="#section3">Thing I like to do</a></li>
                 <li><a href="#section4">Contact Me</a></li>
               </ul>
             </nav>   
@@ -87,13 +87,13 @@ https://templatemo.com/tm-531-reflux
         </div>
       </section>
 
-      <section class="section my-work" data-section="section3">
+      <section class="section my-work" data-section="section2">
         <div class="container">
           <div class="section-heading">
             <h2>Current Work</h2>
             <div class="line-dec"></div>
             <span>
-              In IDeaS, I am working on revenue management system for the past 3 years and I specifically deals with analytics part which forecast decisions for hotel.
+              I joined IDeaS in july 2021 and working on revenue management system. I specifically deals with analytics part which forecast decisions for hotel.
               </span>
           </div>
 
@@ -142,7 +142,7 @@ https://templatemo.com/tm-531-reflux
         </div>
       </section>
 
-      <section class="section my-services" data-section="section2">
+      <section class="section my-services" data-section="section3">
         <div class="container">
           <div class="section-heading">
             <h2>Things I like to do</h2>
@@ -255,7 +255,7 @@ https://templatemo.com/tm-531-reflux
       var checkSection = function checkSection() {
         $(".section").each(function() {
           var $this = $(this),
-            topEdge = $this.offset().top - 80,
+            topEdge = $this.offset().top - 100,
             bottomEdge = topEdge + $this.height(),
             wScroll = $(window).scrollTop();
           if (topEdge < wScroll && bottomEdge > wScroll) {
