@@ -1,0 +1,276 @@
+/* ================================================================
+   THEMES.CSS
+   All theme definitions via CSS custom properties on [data-theme].
+   Applied by setting data-theme="void|sakura|terminal" on <html>.
+   Theme switching is instant — no JS style injection needed.
+   ================================================================ */
+
+/* ────────────────────────────────────────────────────────────────
+   THEME 1 ▸ VOID — Cyberpunk / Neon Dark
+   Feel: Electric, sharp, midnight city at 3 AM.
+   Fonts: Orbitron (geometric display) + Share Tech Mono (body)
+   Colors: Deep navy-black base · Electric cyan · Hot pink accents
+   Shape language: Angular, 0-2px radius, glowing edges
+──────────────────────────────────────────────────────────────── */
+:root,
+[data-theme="void"] {
+
+  /* --- Core Palette --- */
+  --bg-primary:        #07070f;
+  --bg-secondary:      #0c0c1c;
+  --bg-tertiary:       #101028;
+  --bg-card:           #0d0d20;
+  --bg-card-hover:     #131330;
+  --bg-nav:            rgba(7, 7, 15, 0.9);
+
+  --accent-1:          #00f5ff;   /* Neon cyan — primary */
+  --accent-2:          #ff0080;   /* Hot pink — secondary */
+  --accent-3:          #7000ff;   /* Electric violet */
+  --accent-dim:        rgba(0, 245, 255, 0.12);
+
+  --text-primary:      #e4e4ff;
+  --text-secondary:    #7a7aaa;
+  --text-muted:        #383860;
+  --text-on-accent:    #000000;
+
+  /* --- Typography --- */
+  --font-display:      'Orbitron', 'Courier New', monospace;
+  --font-body:         'Share Tech Mono', 'Courier New', monospace;
+  --font-code:         'Share Tech Mono', monospace;
+  --font-size-hero:    clamp(2.8rem, 7vw, 6.5rem);
+  --font-size-section: clamp(1.5rem, 3vw, 2.2rem);
+  --font-weight-hero:  900;
+  --ls-display:        0.08em;
+  --ls-body:           0.04em;
+  --line-height-body:  1.7;
+
+  /* --- Shape & Borders --- */
+  --radius-card:       2px;
+  --radius-btn:        2px;
+  --radius-tag:        0px;
+  --radius-nav:        2px;
+  --border-color:      rgba(0, 245, 255, 0.18);
+  --border-strong:     rgba(0, 245, 255, 0.55);
+  --border-width:      1px;
+
+  /* --- Shadows & Glows --- */
+  --shadow-card:       0 0 25px rgba(0, 245, 255, 0.04), 0 4px 40px rgba(0,0,0,0.7);
+  --shadow-hover:      0 0 30px rgba(0, 245, 255, 0.14), 0 0 80px rgba(0,245,255,0.04);
+  --shadow-btn:        0 0 18px rgba(0, 245, 255, 0.35);
+  --shadow-glow:       0 0 8px var(--accent-1), 0 0 20px rgba(0,245,255,0.3);
+  --text-shadow-hero:  0 0 50px rgba(0,245,255,0.35), 0 0 100px rgba(0,245,255,0.1);
+
+  /* --- Layout --- */
+  --section-pad:       clamp(70px, 10vw, 120px) 24px;
+  --card-pad:          28px;
+  --nav-height:        68px;
+  --max-width:         1160px;
+
+  /* --- Transitions --- */
+  --ease-out:          cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:       cubic-bezier(0.4, 0, 0.2, 1);
+  --t-fast:            0.15s;
+  --t-mid:             0.3s;
+  --t-slow:            0.6s;
+
+  /* --- Background --- */
+  --hero-bg:           radial-gradient(ellipse 60% 80% at 15% 50%,
+                         rgba(0,245,255,0.04) 0%, transparent 60%),
+                       radial-gradient(ellipse 40% 60% at 85% 20%,
+                         rgba(255,0,128,0.04) 0%, transparent 60%),
+                       #07070f;
+  --grid-color:        rgba(0, 245, 255, 0.035);
+  --orb-1-color:       rgba(0, 245, 255, 0.06);
+  --orb-2-color:       rgba(255, 0, 128, 0.05);
+
+  /* --- Skill Tag Colors (by level) --- */
+  --tag-bg-expert:     rgba(0, 245, 255, 0.08);
+  --tag-bd-expert:     rgba(0, 245, 255, 0.4);
+  --tag-tx-expert:     #00f5ff;
+  --tag-bg-proficient: rgba(112, 0, 255, 0.08);
+  --tag-bd-proficient: rgba(112, 0, 255, 0.4);
+  --tag-tx-proficient: #a060ff;
+  --tag-bg-learning:   rgba(255, 0, 128, 0.07);
+  --tag-bd-learning:   rgba(255, 0, 128, 0.3);
+  --tag-tx-learning:   #ff4da6;
+
+  /* --- Section Counter --- */
+  --num-color:         rgba(0, 245, 255, 0.06);
+  --num-size:          8rem;
+
+  /* --- Theme Identity (used by JS for labeling) --- */
+  --theme-label:       "VOID";
+  --crt-scan-opacity:  0;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   THEME 2 ▸ SAKURA — Anime Soft / Cherry Blossom
+   Feel: Warm, gentle, a quiet afternoon in Ueno Park in April.
+   Fonts: Playfair Display (refined serif) + Lato (clean sans)
+   Colors: Warm ivory · Cherry blossom pinks · Soft lavender
+   Shape language: Rounded (50px btn), soft shadows, bounce easing
+──────────────────────────────────────────────────────────────── */
+[data-theme="sakura"] {
+
+  --bg-primary:        #fdf8f5;
+  --bg-secondary:      #fff0f5;
+  --bg-tertiary:       #fce9ef;
+  --bg-card:           #ffffff;
+  --bg-card-hover:     #fff5f8;
+  --bg-nav:            rgba(253, 248, 245, 0.92);
+
+  --accent-1:          #d94f72;   /* Cherry — primary */
+  --accent-2:          #a8336e;   /* Deep sakura — secondary */
+  --accent-3:          #f0a0bb;   /* Petal pink */
+  --accent-dim:        rgba(217, 79, 114, 0.1);
+
+  --text-primary:      #2a1520;
+  --text-secondary:    #7a4e60;
+  --text-muted:        #c8a0b0;
+  --text-on-accent:    #ffffff;
+
+  --font-display:      'Playfair Display', Georgia, serif;
+  --font-body:         'Lato', Helvetica, sans-serif;
+  --font-code:         'Share Tech Mono', monospace;
+  --font-size-hero:    clamp(2.8rem, 6vw, 5.8rem);
+  --font-size-section: clamp(1.5rem, 3vw, 2.2rem);
+  --font-weight-hero:  700;
+  --ls-display:        -0.02em;
+  --ls-body:           0.01em;
+  --line-height-body:  1.8;
+
+  --radius-card:       20px;
+  --radius-btn:        100px;
+  --radius-tag:        100px;
+  --radius-nav:        0px;
+  --border-color:      rgba(217, 79, 114, 0.14);
+  --border-strong:     rgba(217, 79, 114, 0.4);
+  --border-width:      1.5px;
+
+  --shadow-card:       0 4px 28px rgba(168, 51, 110, 0.07), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-hover:      0 12px 48px rgba(168, 51, 110, 0.14), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-btn:        0 6px 24px rgba(217, 79, 114, 0.32);
+  --shadow-glow:       0 4px 20px rgba(217, 79, 114, 0.22);
+  --text-shadow-hero:  none;
+
+  --section-pad:       clamp(70px, 10vw, 120px) 24px;
+  --card-pad:          32px;
+  --nav-height:        72px;
+  --max-width:         1160px;
+
+  /* Bounce easing — signature of this theme */
+  --ease-out:          cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out:       cubic-bezier(0.34, 1.2, 0.64, 1);
+  --t-fast:            0.2s;
+  --t-mid:             0.4s;
+  --t-slow:            0.7s;
+
+  --hero-bg:           radial-gradient(ellipse 70% 60% at 30% 40%,
+                         rgba(217,79,114,0.07) 0%, transparent 60%),
+                       radial-gradient(ellipse 50% 40% at 80% 70%,
+                         rgba(240,160,187,0.08) 0%, transparent 60%),
+                       #fdf8f5;
+  --grid-color:        transparent;
+  --orb-1-color:       rgba(217, 79, 114, 0.06);
+  --orb-2-color:       rgba(240, 160, 187, 0.07);
+
+  --tag-bg-expert:     rgba(217, 79, 114, 0.09);
+  --tag-bd-expert:     rgba(217, 79, 114, 0.3);
+  --tag-tx-expert:     #b83a60;
+  --tag-bg-proficient: rgba(130, 80, 170, 0.09);
+  --tag-bd-proficient: rgba(130, 80, 170, 0.3);
+  --tag-tx-proficient: #7048a0;
+  --tag-bg-learning:   rgba(200, 120, 60, 0.09);
+  --tag-bd-learning:   rgba(200, 120, 60, 0.3);
+  --tag-tx-learning:   #a85a20;
+
+  --num-color:         rgba(217, 79, 114, 0.06);
+  --num-size:          9rem;
+
+  --theme-label:       "SAKURA";
+  --crt-scan-opacity:  0;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   THEME 3 ▸ TERMINAL — Retro CRT / Hacker Green
+   Feel: 1984 mainframe, late night sudo session, phosphor persistence.
+   Fonts: VT323 (pixel display) + Courier New (body)
+   Colors: Pure black · Phosphor green (#00ff41) · No color noise
+   Shape language: 0px radius everywhere, scanlines, blinking cursors
+──────────────────────────────────────────────────────────────── */
+[data-theme="terminal"] {
+
+  --bg-primary:        #080808;
+  --bg-secondary:      #0c0c0c;
+  --bg-tertiary:       #101010;
+  --bg-card:           #0a0a0a;
+  --bg-card-hover:     #121212;
+  --bg-nav:            rgba(8, 8, 8, 0.95);
+
+  --accent-1:          #00ff41;   /* Phosphor green */
+  --accent-2:          #00cc33;   /* Mid green */
+  --accent-3:          #007722;   /* Dark green */
+  --accent-dim:        rgba(0, 255, 65, 0.08);
+
+  --text-primary:      #00ff41;
+  --text-secondary:    #00a828;
+  --text-muted:        #004d14;
+  --text-on-accent:    #000000;
+
+  --font-display:      'VT323', 'Courier New', monospace;
+  --font-body:         'Courier New', Courier, monospace;
+  --font-code:         'VT323', 'Courier New', monospace;
+  --font-size-hero:    clamp(3rem, 9vw, 8rem);
+  --font-size-section: clamp(1.8rem, 4vw, 3rem);
+  --font-weight-hero:  400;
+  --ls-display:        0.12em;
+  --ls-body:           0.06em;
+  --line-height-body:  1.6;
+
+  --radius-card:       0px;
+  --radius-btn:        0px;
+  --radius-tag:        0px;
+  --radius-nav:        0px;
+  --border-color:      rgba(0, 255, 65, 0.22);
+  --border-strong:     rgba(0, 255, 65, 0.65);
+  --border-width:      1px;
+
+  --shadow-card:       0 0 0 1px rgba(0,255,65,0.12), inset 0 0 40px rgba(0,0,0,0.6);
+  --shadow-hover:      0 0 0 1px rgba(0,255,65,0.45), 0 0 24px rgba(0,255,65,0.1);
+  --shadow-btn:        0 0 14px rgba(0,255,65,0.5), inset 0 0 6px rgba(0,255,65,0.1);
+  --shadow-glow:       0 0 8px var(--accent-1), 0 0 20px rgba(0,255,65,0.35);
+  --text-shadow-hero:  0 0 20px rgba(0,255,65,0.5), 0 0 60px rgba(0,255,65,0.15);
+
+  --section-pad:       clamp(60px, 8vw, 100px) 24px;
+  --card-pad:          24px;
+  --nav-height:        56px;
+  --max-width:         1160px;
+
+  /* Stepped/snappy transitions — simulates CRT pixel refresh */
+  --ease-out:          steps(4, end);
+  --ease-in-out:       steps(3, end);
+  --t-fast:            0.06s;
+  --t-mid:             0.12s;
+  --t-slow:            0.28s;
+
+  --hero-bg:           #080808;
+  --grid-color:        rgba(0, 255, 65, 0.03);
+  --orb-1-color:       transparent;
+  --orb-2-color:       transparent;
+
+  --tag-bg-expert:     transparent;
+  --tag-bd-expert:     rgba(0, 255, 65, 0.55);
+  --tag-tx-expert:     #00ff41;
+  --tag-bg-proficient: transparent;
+  --tag-bd-proficient: rgba(0, 204, 51, 0.45);
+  --tag-tx-proficient: #00cc33;
+  --tag-bg-learning:   transparent;
+  --tag-bd-learning:   rgba(0, 119, 34, 0.45);
+  --tag-tx-learning:   #009922;
+
+  --num-color:         rgba(0, 255, 65, 0.05);
+  --num-size:          7rem;
+
+  --theme-label:       "TERMINAL";
+  --crt-scan-opacity:  0.055;  /* CRT scanlines visible only in this theme */
+}

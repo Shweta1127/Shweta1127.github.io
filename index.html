@@ -1,283 +1,406 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
-      rel="stylesheet"
-    />
+<html lang="en" data-theme="void">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shweta Suryavanshi — Software Developer specializing in Java, Spring Boot, AWS microservices, and Python." />
+  <title>Shweta Suryavanshi — Software Developer</title>
 
-    <title>Shweta Suryavanshi</title>
-<!--
-Reflux Template
-https://templatemo.com/tm-531-reflux
--->
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts: loaded per theme need (all preloaded for instant switching) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=VT323&display=swap" rel="stylesheet" />
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css" />
-    <link rel="stylesheet" href="assets/css/templatemo-style.css" />
-    <link rel="stylesheet" href="assets/css/owl.css" />
-    <link rel="stylesheet" href="assets/css/lightbox.css" />
-  </head>
+  <link rel="stylesheet" href="themes.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-  <body>
-    <div id="page-wraper">
-      <!-- Sidebar Menu -->
-      <div class="responsive-nav">
-        <i class="fa fa-bars" id="menu-toggle"></i>
-        <div id="menu" class="menu">
-          <i class="fa fa-times" id="menu-close"></i>
-          <div class="container">
-            <div class="image">
-              <a href="#"><img src="assets/images/author-image.png" alt=""/></a>
-            </div>
-            <div class="author-content">
-              <h4>Shweta Suryavanshi</h4>
-              <span>Software Developer</span> <br>
-              <span>I can code anything and I am an anime girl</span>
-            </div>
-            <nav class="main-nav" role="navigation">
-              <ul class="main-menu">
-                <li><a href="#section1">Bit About Me</a></li>
-                <li><a href="#section2">Current Work</a></li>
-                <li><a href="#section3">Thing I like to do</a></li>
-                <li><a href="#section4">Contact Me</a></li>
-              </ul>
-            </nav>   
-          </div>
+  <!-- ░░ SCANLINE OVERLAY — visible in TERMINAL theme only ░░ -->
+  <div class="crt-scanlines" aria-hidden="true"></div>
+
+  <!-- ░░ SITE HEADER ░░ -->
+  <header class="site-header" role="banner">
+    <nav class="nav-container" aria-label="Main navigation">
+
+      <a href="#hero" class="nav-logo" aria-label="Back to top">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">dev.shweta</span>
+        <span class="logo-bracket">]</span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about"    class="nav-link" data-section="about">About</a></li>
+        <li><a href="#skills"   class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+        <li><a href="#contact"  class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+
+      <!-- Theme Switcher -->
+      <div class="theme-switcher" role="group" aria-label="Choose site theme">
+        <button class="theme-btn active" data-theme-target="void"
+                aria-label="VOID — Cyberpunk theme" title="VOID">
+          <span class="theme-pip" aria-hidden="true"></span>
+          <span class="theme-name">VOID</span>
+        </button>
+        <button class="theme-btn" data-theme-target="sakura"
+                aria-label="SAKURA — Anime soft theme" title="SAKURA">
+          <span class="theme-pip" aria-hidden="true"></span>
+          <span class="theme-name">SAKURA</span>
+        </button>
+        <button class="theme-btn" data-theme-target="terminal"
+                aria-label="TERMINAL — Retro hacker theme" title="TERMINAL">
+          <span class="theme-pip" aria-hidden="true"></span>
+          <span class="theme-name">TERMINAL</span>
+        </button>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         §1  HERO
+    ══════════════════════════════════════════ -->
+    <section id="hero" class="section hero-section" aria-label="Introduction">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="bg-grid"></div>
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+      </div>
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+      <div class="hero-content">
+        <p class="hero-greeting">
+          <span id="hero-greeting-text">// hello, world</span>
+        </p>
+        <h1 class="hero-name">
+          <span class="name-first">Shweta</span>
+          <span class="name-last">Suryavanshi</span>
+        </h1>
+        <p class="hero-role">
+          <span class="role-bracket">&lt;</span><span
+            id="role-typewriter" role="text" aria-label="Software Developer"></span><span
+            class="role-cursor" aria-hidden="true">▊</span><span
+            class="role-bracket">/&gt;</span>
+        </p>
+        <p class="hero-tagline">
+          "Building high-performance systems with clean code, one microservice at a time."
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact"  class="btn btn-secondary">Say Hello</a>
         </div>
       </div>
 
-      <section class="section about-me" data-section="section1">
-        <div class="container">
-          <div class="section-heading">
-            <h2>Bit About Me</h2>
-            <div class="line-dec"></div>
-            <span>I am a software developer at IDeaS - The SAS Company, working on revenue management system for hotels.</span>
-            
-          </div>
-          <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-              <div class="text-justify">
-                <div class="text-box">
-                  <p>
-                    Since school time, I liked solving mathematical problems and that led to me engineering. 
-                    I completed B.Tech in computer engineering from COEP Pune. There I started programming in C and moved to Python, Java, Node and still eagerly learning different technology stacks.
-                    The process of brainstorming solutions, writing code, optimizing and the end result gives me 
-                    immense excitement and satisfaction.
-                  </p>
-                  <p>
-                    Apart from coding I have been interested in Machine Learning and Deep Learning. I have completed related courses specifically andrew ng ML and DL lectures.
-                    I did internship in Vinvent where I got chance to work on video surveillance DL model and improved performance.
-                  </p>
-                </div>  
+      <div class="hero-status" aria-label="Availability status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Available for hire</span>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         §2  ABOUT
+    ══════════════════════════════════════════ -->
+    <section id="about" class="section about-section" aria-label="About me">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-number" aria-hidden="true">01</span>
+          <h2 class="section-title">About Me</h2>
+          <div class="section-line" aria-hidden="true"></div>
+        </header>
+
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p class="about-intro">
+              Hey — I'm a software developer with 4 years and 8 months of experience building high-performance microservices on AWS. I'm driven by clean architecture, scalable systems, and a keen interest in mathematics and emerging AI.
+            </p>
+            <p>
+              I design and ship end-to-end solutions: from Spring Boot APIs and MySQL schemas to serverless Lambda functions and Terraform infrastructure — all wired together with CI/CD pipelines that actually work.
+            </p>
+            <p>
+              When I'm not resolving production incidents or optimizing SQL queries, you'll find me watching anime, trekking, or playing table tennis.
+            </p>
+            <div class="about-facts">
+              <div class="fact-item">
+                <span class="fact-label">Location</span>
+                <span class="fact-value">Baner, Pune, India</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Currently</span>
+                <span class="fact-value">Software Developer @ IDEAS</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Watching</span>
+                <span class="fact-value">Anime</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Reading</span>
+                <span class="fact-value">Books</span>
               </div>
             </div>
-            <div class="col-md-1"></div>
           </div>
+
+          <aside class="about-visual reveal" aria-label="Developer stats">
+            <div class="stat-grid">
+              <div class="stat-card">
+                <span class="stat-number" data-target="4">0</span>
+                <span class="stat-label">Years Experience</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number" data-target="3">0</span>
+                <span class="stat-label">Cloud Platforms</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number" data-target="10">0</span>
+                <span class="stat-label">AWS Services Used</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number" data-target="5">0</span>
+                <span class="stat-label">Languages</span>
+              </div>
+            </div>
+            <blockquote class="about-quote">
+              <p>"Clean code, SOLID principles, and TDD — not just buzzwords, but a way of building."</p>
+              <cite>— Shweta Suryavanshi</cite>
+            </blockquote>
+          </aside>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section my-work" data-section="section2">
-        <div class="container">
-          <div class="section-heading">
-            <h2>Current Work</h2>
-            <div class="line-dec"></div>
-            <span>
-              I joined IDeaS in july 2021 and working on revenue management system. I specifically deals with analytics part which forecast decisions for hotel.
-              </span>
+    <!-- ══════════════════════════════════════════
+         §3  SKILLS
+    ══════════════════════════════════════════ -->
+    <section id="skills" class="section skills-section" aria-label="Skills and technologies">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-number" aria-hidden="true">02</span>
+          <h2 class="section-title">Skills &amp; Tech</h2>
+          <div class="section-line" aria-hidden="true"></div>
+        </header>
+
+        <div class="skills-layout">
+          <div class="skill-category reveal">
+            <h3 class="category-title">Languages</h3>
+            <div class="skill-items">
+              <span class="skill-tag" data-level="expert">Java</span>
+              <span class="skill-tag" data-level="expert">TypeScript</span>
+              <span class="skill-tag" data-level="expert">JavaScript</span>
+              <span class="skill-tag" data-level="proficient">Python</span>
+              <span class="skill-tag" data-level="proficient">Terraform</span>
+            </div>
           </div>
 
-          <div class="right-image-post">
-            
-            <div class="row">
-              <div class="col-md-6">
-                <div class="right-text">
-                  <h4>Revenue Management System</h4>
-                  <p>In revenue management system, My work focuses on feature development, legacy code update, resolve client cases etc.
-                  </p>
-                  <p>
-                    The techonlogies used in project are springboot application with java 17, MySQL 8+ and for infrastructure AWS with terraform.
-                  </p>
-                  <p>
-                    Since I work on complex piece of code, we follow clean code practice, try to apply SOLID priciples and functional programming.
-                  </p>
-                </div>
-              </div>
-                <div class="col-md-6">
-                  <div class="right-image">
-                    <img src="assets/images/rms.jpg" alt="" />
-                  </div>
-                </div>
+          <div class="skill-category reveal">
+            <h3 class="category-title">Frameworks &amp; Libraries</h3>
+            <div class="skill-items">
+              <span class="skill-tag" data-level="expert">Spring Boot</span>
+              <span class="skill-tag" data-level="expert">Spring</span>
+              <span class="skill-tag" data-level="expert">Hibernate / JPA</span>
+              <span class="skill-tag" data-level="proficient">WebFlux</span>
+              <span class="skill-tag" data-level="proficient">Django</span>
+              <span class="skill-tag" data-level="proficient">Express.js</span>
+              <span class="skill-tag" data-level="proficient">Flyway</span>
+              <span class="skill-tag" data-level="proficient">JUnit / PyTest</span>
             </div>
           </div>
-          <div class="right-image-post">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="left-text">
-                  <h4>Micro Services</h4>
-                  <p>
-                    Recently we started creating more micro services instead of adding more code in existing projects as it provides reusable services.
-                  </p>
-                  <p> I have created 3+ micro services in Java, Python, Node in AWS with terraform and ci/cd is done with github workflow.</p>
-                  
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="right-image">
-                  <img src="assets/images/micro-service.PNG" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section class="section my-services" data-section="section3">
-        <div class="container">
-          <div class="section-heading">
-            <h2>Things I like to do</h2>
-            <div class="line-dec"></div>
-            <span
-              >You can’t have everything you want, but you can have the things that really matter to you.</span
-            >
-            <br>
-            <span> – Marissa Mayer</span>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="service-item">
-                <h4>Writing Clean Code</h4>
-                <p>
-                  At work learnt importance of clean code and now hooked to it. 
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="service-item">
-                <h4>Good Ideas</h4>
-                <p>
-                  Having good ideas gives more flexibility and productivity at work.
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="service-item">
-                <h4>Collaboration</h4>
-                <p>
-                  Collaborations gives me chance to learn more from peers.
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="service-item">
-                <h4>Exploring Places</h4>
-                <p>
-                  I Like exploring near by food, trekking place etc.
-                </p>
-              </div>
+          <div class="skill-category reveal">
+            <h3 class="category-title">AWS &amp; Infrastructure</h3>
+            <div class="skill-items">
+              <span class="skill-tag" data-level="expert">AWS Lambda</span>
+              <span class="skill-tag" data-level="expert">AWS ECS</span>
+              <span class="skill-tag" data-level="expert">S3</span>
+              <span class="skill-tag" data-level="proficient">DynamoDB</span>
+              <span class="skill-tag" data-level="proficient">SNS / SQS</span>
+              <span class="skill-tag" data-level="proficient">IAM / Cognito</span>
+              <span class="skill-tag" data-level="proficient">Docker</span>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section class="section contact-me" data-section="section4">
-        <div class="container">
-          <div class="section-heading">
-            <h2>Contact Me</h2>
-            <div class="line-dec"></div>
-            <span>You can connect me on github, LinkedIn, twitter and mail.</span>
-            <div class="social-network">
-              <ul class="soial-icons">
-                <li>
-                  <a href="https://github.com/Shweta1127"><i class="fa fa-github"></i></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/shweta-suryavanshi-686763191"><i class="fa fa-linkedin"></i></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/Shw3ta25"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                  <a href="mailto:official.shwetasuryavanshi@gmail.com"><i class="fa fa-envelope"></i></a>
-                </li>
-              </ul>
-            </div>
-            <div class="copyright-text">
-              <p>All rights reserved 2024</p>
+          <div class="skill-category reveal">
+            <h3 class="category-title">Databases &amp; Tools</h3>
+            <div class="skill-items">
+              <span class="skill-tag" data-level="expert">MySQL</span>
+              <span class="skill-tag" data-level="proficient">PostgreSQL</span>
+              <span class="skill-tag" data-level="proficient">DynamoDB</span>
+              <span class="skill-tag" data-level="expert">Git / GitHub</span>
+              <span class="skill-tag" data-level="proficient">CI/CD</span>
+              <span class="skill-tag" data-level="proficient">Gradle / Maven</span>
             </div>
           </div>
         </div>
-      </section>
+
+        <div class="skill-legend" aria-label="Skill level legend">
+          <span class="legend-item" data-level="expert">Expert</span>
+          <span class="legend-item" data-level="proficient">Proficient</span>
+          <span class="legend-item" data-level="learning">Learning</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         §4  PROJECTS
+    ══════════════════════════════════════════ -->
+    <section id="projects" class="section projects-section" aria-label="Projects">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-number" aria-hidden="true">03</span>
+          <h2 class="section-title">Projects</h2>
+          <div class="section-line" aria-hidden="true"></div>
+        </header>
+
+        <div class="projects-grid">
+
+          <!-- Featured -->
+          <article class="project-card featured reveal" aria-label="Featured project: End-to-End Client Solution">
+            <div class="project-meta">
+              <span class="project-badge">Featured</span>
+              <div class="project-links">
+              </div>
+            </div>
+            <h3 class="project-title">End-to-End Client Onboarding</h3>
+            <p class="project-desc">Architected and implemented a complete end-to-end solution for a new client at IDEAS – Revenue Solution, resulting in high client satisfaction and onboarding of a higher number of properties. Delivered on a tight timeline through cross-functional collaboration.</p>
+            <ul class="project-tags" role="list">
+              <li>Java</li><li>Spring Boot</li><li>MySQL</li><li>AWS</li>
+            </ul>
+            <div class="project-stats">
+              <span title="Company">🏢 IDEAS – Revenue Solution</span>
+              <span title="Year">📅 2021 – Present</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal" aria-label="Project: Serverless AWS Platform">
+            <div class="project-meta">
+              <span class="project-badge">Cloud</span>
+              <div class="project-links">
+              </div>
+            </div>
+            <h3 class="project-title">Serverless AWS Platform</h3>
+            <p class="project-desc">Developed serverless and containerized applications using AWS Lambda and ECS with DynamoDB and S3. Built corresponding infrastructure in Terraform with end-to-end CI/CD pipelines via GitHub Actions across TypeScript, Python, and Java services.</p>
+            <ul class="project-tags" role="list">
+              <li>AWS Lambda</li><li>ECS</li><li>Terraform</li><li>GitHub Actions</li>
+            </ul>
+            <div class="project-stats">
+              <span>🏢 IDEAS – Revenue Solution</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal" aria-label="Project: MCP Server">
+            <div class="project-meta">
+              <span class="project-badge">Backend</span>
+              <div class="project-links">
+              </div>
+            </div>
+            <h3 class="project-title">Node MCP Server</h3>
+            <p class="project-desc">Created a Node.js-based MCP (Model Context Protocol) server for a functional microservice. Also built and standardized reusable CI/CD workflows for Python and Node Lambda deployments, reducing operational overhead significantly.</p>
+            <ul class="project-tags" role="list">
+              <li>Node.js</li><li>TypeScript</li><li>MCP</li>
+            </ul>
+            <div class="project-stats">
+              <span>🏢 IDEAS – Revenue Solution</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal" aria-label="Project: ML & Deep Learning Internships">
+            <div class="project-meta">
+              <span class="project-badge">AI / ML</span>
+              <div class="project-links">
+              </div>
+            </div>
+            <h3 class="project-title">ML &amp; Deep Learning Projects</h3>
+            <p class="project-desc">Worked on a machine learning model during an internship at Persistent Systems. Earlier, at Vinvent, developed a deep learning and image processing project that improved model accuracy — building a strong foundation in AI/ML.</p>
+            <ul class="project-tags" role="list">
+              <li>Python</li><li>Deep Learning</li><li>Image Processing</li>
+            </ul>
+            <div class="project-stats">
+              <span>🏢 Persistent &amp; Vinvent</span><span>📅 2019 – 2020</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         §5  CONTACT
+    ══════════════════════════════════════════ -->
+    <section id="contact" class="section contact-section" aria-label="Contact">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-number" aria-hidden="true">04</span>
+          <h2 class="section-title">Let's Connect</h2>
+          <div class="section-line" aria-hidden="true"></div>
+        </header>
+
+        <div class="contact-layout">
+          <div class="contact-text reveal">
+            <p class="contact-intro">
+              Interested in collaborating on backend systems, cloud architecture, or microservices? Or just want to talk Java, Spring Boot, or AWS over a virtual coffee — I'm here for it.
+            </p>
+            <p>Open to new opportunities and interesting engineering challenges.</p>
+          </div>
+
+          <div class="contact-links reveal">
+            <a href="mailto:official.shwetasuryavanshi@gmail.com" class="contact-card">
+              <span class="contact-icon">✉</span>
+              <div class="contact-info">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">official.shwetasuryavanshi@gmail.com</span>
+              </div>
+            </a>
+            <a href="tel:+919604804696" class="contact-card">
+              <span class="contact-icon">◎</span>
+              <div class="contact-info">
+                <span class="contact-label">Phone</span>
+                <span class="contact-value">+91 9604804696</span>
+              </div>
+            </a>
+            <a href="https://github.com/Shweta1127" target="_blank" rel="noopener noreferrer" class="contact-card">
+              <span class="contact-icon">⌥</span>
+              <div class="contact-info">
+                <span class="contact-label">GitHub</span>
+                <span class="contact-value">GitHub Profile</span>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/shweta-suryavanshi-686763191" target="_blank" rel="noopener noreferrer" class="contact-card">
+              <span class="contact-icon">▣</span>
+              <div class="contact-info">
+                <span class="contact-label">LinkedIn</span>
+                <span class="contact-value">Shweta Suryavanshi</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy">
+        <span>© 2025 Shweta Suryavanshi</span>
+        <span class="footer-sep" aria-hidden="true"> · </span>
+        <span>Software Developer</span>
+        <span class="footer-sep" aria-hidden="true"> · </span>
+        <span>Pune, India</span>
+      </p>
+      <p class="footer-theme">
+        Theme: <span id="footer-theme-name">VOID</span>
+      </p>
     </div>
+  </footer>
 
-    <!-- Scripts -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="assets/js/isotope.min.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/custom.js"></script>
-    <script>
-      //according to loftblog tut
-      $(".main-menu li:first").addClass("active");
-
-      var showSection = function showSection(section, isAnimate) {
-        var direction = section.replace(/#/, ""),
-          reqSection = $(".section").filter(
-            '[data-section="' + direction + '"]'
-          ),
-          reqSectionPos = reqSection.offset().top - 0;
-
-        if (isAnimate) {
-          $("body, html").animate(
-            {
-              scrollTop: reqSectionPos
-            },
-            800
-          );
-        } else {
-          $("body, html").scrollTop(reqSectionPos);
-        }
-      };
-
-      var checkSection = function checkSection() {
-        $(".section").each(function() {
-          var $this = $(this),
-            topEdge = $this.offset().top - 100,
-            bottomEdge = topEdge + $this.height(),
-            wScroll = $(window).scrollTop();
-          if (topEdge < wScroll && bottomEdge > wScroll) {
-            var currentId = $this.data("section"),
-              reqLink = $("a").filter("[href*=\\#" + currentId + "]");
-            reqLink
-              .closest("li")
-              .addClass("active")
-              .siblings()
-              .removeClass("active");
-          }
-        });
-      };
-
-      $(".main-menu").on("click", "a", function(e) {
-        e.preventDefault();
-        showSection($(this).attr("href"), true);
-      });
-
-      $(window).scroll(function() {
-        checkSection();
-      });
-    </script>
-  </body>
+  <script src="app.js"></script>
+</body>
 </html>
