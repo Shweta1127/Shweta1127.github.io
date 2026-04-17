@@ -100,7 +100,13 @@ const ThemeManager = (() => {
     });
   }
 
-  return { init, apply, getCurrent: () => _current };
+  /** Return the next theme in the rotation cycle. */
+  function getNext() {
+    const idx = THEMES.indexOf(_current);
+    return THEMES[(idx + 1) % THEMES.length];
+  }
+
+  return { init, apply, getCurrent: () => _current, getNext };
 })();
 
 
@@ -586,6 +592,49 @@ const GreetingAnimator = (() => {
 
 
 /* ═════════════════════════════════════════════════════════════════
+   AUTO THEME ROTATOR
+   Cycles through all three themes automatically every 60 seconds.
+   Resets the timer whenever the user manually picks a theme so it
+   doesn't fight their choice.
+═════════════════════════════════════════════════════════════════ */
+const AutoTheme = (() => {
+
+  const INTERVAL_MS = 60_000; // 1 minute
+  let _timerId = null;
+
+  function _rotate() {
+    const next = ThemeManager.getNext();
+    ThemeManager.apply(next);
+    GreetingAnimator.update(next);
+  }
+
+  /** Start (or restart) the auto-rotation interval. */
+  function start() {
+    stop();
+    _timerId = setInterval(_rotate, INTERVAL_MS);
+  }
+
+  /** Stop the auto-rotation. */
+  function stop() {
+    if (_timerId !== null) {
+      clearInterval(_timerId);
+      _timerId = null;
+    }
+  }
+
+  /**
+   * Reset the countdown after a manual theme change so the next
+   * auto-switch is always a full minute away from the last action.
+   */
+  function reset() {
+    start();
+  }
+
+  return { start, stop, reset };
+})();
+
+
+/* ═════════════════════════════════════════════════════════════════
    KEYBOARD SHORTCUT
    Press 1 / 2 / 3 to cycle themes quickly.
 ═════════════════════════════════════════════════════════════════ */
@@ -597,6 +646,7 @@ function initKeyboardShortcuts() {
     if (theme) {
       ThemeManager.apply(theme);
       GreetingAnimator.update(theme);
+      AutoTheme.reset(); // restart the 1-min countdown after manual pick
     }
   });
 }
@@ -636,6 +686,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 9. Keyboard theme shortcuts (1 / 2 / 3)
   initKeyboardShortcuts();
+
+  // 10. Auto-rotate themes every 60 seconds
+  AutoTheme.start();
+
+  // Reset the auto-rotate timer on manual button clicks
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.addEventListener('click', () => AutoTheme.reset());
+  });
 
   console.log(
     '%c SHWETA SURYAVANSHI PORTFOLIO ',
