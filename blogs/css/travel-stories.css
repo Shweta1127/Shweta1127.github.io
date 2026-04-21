@@ -1,0 +1,367 @@
+/* ═══════════════════════════════════════════════════════════
+   TRAVEL STORIES BLOG — Wanderlust Editorial Theme (dev.shweta)
+   Warm, earthy, magazine-style — like a well-worn travel journal
+   ═══════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* palette */
+  --bg:           #faf7f2;      /* warm parchment */
+  --bg-card:      #ffffff;
+  --bg-highlight: #f3ede3;      /* soft sand */
+  --border:       #ddd5c5;
+  --border-strong:#3b3028;
+  --accent:       #c0651a;      /* terracotta */
+  --accent-2:     #2d6a4f;      /* forest green */
+  --accent-warm:  #e9c46a;      /* golden yellow */
+  --text:         #1f1a14;
+  --text-muted:   #5c5347;
+  --text-light:   #9b8f82;
+
+  /* type */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lato', system-ui, sans-serif;
+  --font-mono:    'Share Tech Mono', 'Courier New', monospace;
+
+  /* misc */
+  --radius:       8px;
+  --shadow:       0 4px 24px rgba(0,0,0,0.09);
+  --max-w:        780px;
+}
+
+/* ── BASE ────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.85;
+  font-size: 1rem;
+}
+a { color: var(--accent-2); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--accent); }
+
+/* ── NAV ─────────────────────────────────────────────────── */
+.ts-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--border-strong);
+  padding: 0 2rem;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ts-nav-back {
+  color: #c8bfb5;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+.ts-nav-back:hover { color: var(--accent-warm); text-decoration: none; }
+.ts-nav-logo {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #9b8f82;
+  letter-spacing: 0.12em;
+}
+
+/* ── HERO ────────────────────────────────────────────────── */
+.ts-hero {
+  background: var(--border-strong);
+  color: #faf7f2;
+  padding: 4rem 2rem 3.5rem;
+  text-align: center;
+  border-bottom: 4px solid var(--accent);
+}
+.ts-hero-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.ts-category {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+  background: rgba(233,196,106,0.12);
+  border: 1px solid rgba(233,196,106,0.35);
+  border-radius: 3px;
+  padding: 4px 12px;
+  margin-bottom: 1.4rem;
+}
+.ts-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.1rem;
+  color: #faf7f2;
+}
+.ts-title .highlight { color: var(--accent-warm); }
+.ts-subtitle {
+  font-size: 1.15rem;
+  color: #c8bfb5;
+  max-width: 600px;
+  margin: 0 auto 1.6rem;
+  font-style: italic;
+  line-height: 1.65;
+}
+.ts-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #9b8f82;
+  font-family: var(--font-mono);
+}
+.ts-meta .dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4caf50;
+  margin-right: 4px;
+  animation: blink 1.6s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── MAIN BODY ───────────────────────────────────────────── */
+.ts-body {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
+}
+
+/* ── JOURNEY SNAPSHOT ────────────────────────────────────── */
+.ts-snapshot {
+  background: var(--bg-highlight);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.8rem;
+  margin-bottom: 2.8rem;
+}
+.ts-snapshot-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+.ts-snapshot ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem 1.5rem;
+}
+.ts-snapshot ul li {
+  font-size: 0.93rem;
+  color: var(--text-muted);
+  padding-left: 1.1em;
+  position: relative;
+}
+.ts-snapshot ul li::before {
+  content: '📍';
+  position: absolute;
+  left: -0.1em;
+  font-size: 0.75em;
+  top: 0.2em;
+}
+
+/* ── ARTICLE ─────────────────────────────────────────────── */
+.ts-article h2 {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--border-strong);
+  margin: 2.4rem 0 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+.ts-article p {
+  margin-bottom: 1.3rem;
+  color: var(--text);
+  font-size: 1.02rem;
+}
+
+/* ── PULL QUOTE ──────────────────────────────────────────── */
+.ts-article blockquote {
+  background: var(--bg-highlight);
+  border-left: 5px solid var(--accent-2);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.4rem 1.8rem;
+  margin: 2rem 0;
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.7;
+}
+.ts-article blockquote .label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+  font-style: normal;
+}
+.ts-article blockquote cite {
+  display: block;
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  color: var(--text-light);
+  font-style: normal;
+  font-family: var(--font-body);
+}
+
+/* ── HIGHLIGHTS BOX ──────────────────────────────────────── */
+.ts-highlights {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.8rem;
+  margin: 2rem 0;
+  box-shadow: var(--shadow);
+}
+.ts-highlights-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+.ts-highlights ul {
+  list-style: none;
+  padding: 0;
+}
+.ts-highlights ul li {
+  padding: 0.4rem 0 0.4rem 1.6rem;
+  position: relative;
+  font-size: 0.97rem;
+  color: var(--text-muted);
+  border-bottom: 1px dashed var(--border);
+}
+.ts-highlights ul li:last-child { border-bottom: none; }
+.ts-highlights ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--accent-warm);
+  font-size: 0.8em;
+  top: 0.55em;
+}
+
+/* ── PRACTICAL INFO ──────────────────────────────────────── */
+.ts-practical {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.8rem;
+  margin: 2rem 0;
+}
+.ts-practical-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+.ts-practical table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.ts-practical table td {
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.ts-practical table td:first-child {
+  font-weight: 600;
+  color: var(--text);
+  width: 38%;
+  white-space: nowrap;
+}
+
+/* ── SOURCES ─────────────────────────────────────────────── */
+.ts-sources {
+  margin-top: 2.8rem;
+  padding-top: 1.4rem;
+  border-top: 2px solid var(--border);
+}
+.ts-sources-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.ts-sources ul {
+  list-style: none;
+  padding: 0;
+}
+.ts-sources ul li {
+  padding: 0.3rem 0 0.3rem 1rem;
+  position: relative;
+  font-size: 0.92rem;
+}
+.ts-sources ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* ── TAGS ────────────────────────────────────────────────── */
+.ts-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+.ts-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: var(--bg-highlight);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 4px 10px;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.ts-footer {
+  background: var(--border-strong);
+  color: #9b8f82;
+  text-align: center;
+  padding: 1.6rem 2rem;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+.ts-footer a { color: var(--accent-warm); text-decoration: none; }
+.ts-footer a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .ts-hero   { padding: 2.5rem 1.2rem 2rem; }
+  .ts-body   { padding: 2rem 1.2rem 3rem; }
+  .ts-nav    { padding: 0 1rem; }
+  .ts-snapshot ul { grid-template-columns: 1fr; }
+  .ts-practical table td:first-child { width: auto; }
+}

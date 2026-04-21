@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║          TRAVEL STORIES BLOG TEMPLATE — dev.shweta               ║
+║                                                                  ║
+║  HOW TO USE WITH AN LLM:                                         ║
+║  Give this file to your LLM along with the prompt below.         ║
+║  Replace every {{PLACEHOLDER}} with the real content.            ║
+║                                                                  ║
+║  PROMPT TO GIVE YOUR LLM:                                        ║
+║  ─────────────────────────────────────────────────────────────   ║
+║  "I want to write a travel story blog post about '{{DESTINATION}}'  ║
+║   for my personal portfolio. Fill in the HTML template below.    ║
+║   Write a vivid 1–2 sentence subtitle, a journey snapshot with   ║
+║   key trip facts, 3 narrative sections, one memorable quote,     ║
+║   a highlights box, a practical info table, and 3–4 sources.     ║
+║   Keep the tone personal, sensory, and reflective — like writing ║
+║   in a travel journal the evening after a long day exploring."   ║
+║                                                                  ║
+║  SAVE THE OUTPUT AS:  blogs/your-destination-slug.html           ║
+║  Then add a card in index.html blogs section pointing to it.     ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <title>{{ARTICLE_TITLE}} — dev.shweta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/travel-stories.css" />
+</head>
+<body>
+
+  <!-- ░░ NAV — do not change ░░ -->
+  <nav class="ts-nav">
+    <a href="../../index.html#blogs" class="ts-nav-back"><span>←</span> Back to Portfolio</a>
+    <span class="ts-nav-logo">dev.shweta / travel</span>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <header class="ts-hero">
+    <div class="ts-hero-inner">
+
+      <!-- Category. Examples: 🌏 Asia · 🌍 Europe · 🌎 Americas · 🏔 Trek · 🏙 City · 🏖 Coast -->
+      <span class="ts-category">{{CATEGORY_EMOJI}} {{CATEGORY_LABEL}}</span>
+
+      <!-- Main headline. Wrap a key word in <span class="highlight"> for golden accent -->
+      <h1 class="ts-title">{{ARTICLE_TITLE}}</h1>
+
+      <!-- 1–2 sentence subtitle / hook — make it vivid and sensory -->
+      <p class="ts-subtitle">{{SUBTITLE}}</p>
+
+      <div class="ts-meta">
+        <span>✍ Shweta Suryavanshi</span>
+        <span>📅 {{DATE}}</span>                     <!-- e.g. April 19, 2026 -->
+        <span>⏱ {{READ_TIME}} min read</span>
+        <span>📍 {{DESTINATION}}</span>              <!-- e.g. Kyoto, Japan -->
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ░░ MAIN CONTENT ░░ -->
+  <main class="ts-body">
+
+    <!-- ── JOURNEY SNAPSHOT ────────────────────────────────────
+         Quick-glance facts about the trip.
+         Use the 📍 pin items for: dates, duration, travel style,
+         budget tier, best season, highlight moment, etc.
+    ──────────────────────────────────────────────────────── -->
+    <div class="ts-snapshot">
+      <p class="ts-snapshot-label">// journey at a glance</p>
+      <ul>
+        <li>{{SNAPSHOT_1}}</li>   <!-- e.g. 📅 Duration: 7 days -->
+        <li>{{SNAPSHOT_2}}</li>   <!-- e.g. 🗓 Visited: March 2026 -->
+        <li>{{SNAPSHOT_3}}</li>   <!-- e.g. 💸 Budget: Mid-range -->
+        <li>{{SNAPSHOT_4}}</li>   <!-- e.g. 🌤 Season: Early spring -->
+        <li>{{SNAPSHOT_5}}</li>   <!-- e.g. 🚆 Getting there: Shinkansen from Tokyo -->
+        <li>{{SNAPSHOT_6}}</li>   <!-- optional — remove if not needed -->
+      </ul>
+    </div>
+
+    <!-- ── ARTICLE ────────────────────────────────────────────
+         Suggested narrative structure:
+           1. Arrival / First Impressions — set the scene
+           2. The Heart of It             — the main experience
+           3. Leaving & Looking Back      — reflection, what you'll carry
+         Add more sections as needed.
+         Use <blockquote> for memorable moments / pull quotes.
+    ──────────────────────────────────────────────────────── -->
+    <article class="ts-article">
+
+      <h2>{{SECTION_1_HEADING}}</h2>
+      <!-- 2 paragraphs: arriving, first impressions, sensory details -->
+      <p>{{SECTION_1_PARAGRAPH_1}}</p>
+      <p>{{SECTION_1_PARAGRAPH_2}}</p>
+
+      <!-- Pull quote — a vivid moment or overheard line -->
+      <blockquote>
+        <span class="label">// the moment</span>
+        {{PULL_QUOTE}}
+        <cite>— Shweta Suryavanshi</cite>
+      </blockquote>
+
+      <h2>{{SECTION_2_HEADING}}</h2>
+      <!-- 2–3 paragraphs: the main experiences, places, food, people -->
+      <p>{{SECTION_2_PARAGRAPH_1}}</p>
+      <p>{{SECTION_2_PARAGRAPH_2}}</p>
+      <p>{{SECTION_2_PARAGRAPH_3}}</p>  <!-- optional -->
+
+      <!-- ── HIGHLIGHTS BOX ────────────────────────────────── -->
+      <div class="ts-highlights">
+        <p class="ts-highlights-label">// trip highlights</p>
+        <ul>
+          <li>{{HIGHLIGHT_1}}</li>
+          <li>{{HIGHLIGHT_2}}</li>
+          <li>{{HIGHLIGHT_3}}</li>
+          <li>{{HIGHLIGHT_4}}</li>  <!-- optional -->
+          <li>{{HIGHLIGHT_5}}</li>  <!-- optional -->
+        </ul>
+      </div>
+
+      <h2>{{SECTION_3_HEADING}}</h2>
+      <!-- 1–2 paragraphs: reflection, what you'll take away, would you return? -->
+      <p>{{SECTION_3_PARAGRAPH_1}}</p>
+      <p>{{SECTION_3_PARAGRAPH_2}}</p>  <!-- optional -->
+
+      <!-- ── PRACTICAL INFO TABLE ──────────────────────────── -->
+      <div class="ts-practical">
+        <p class="ts-practical-label">// practical info</p>
+        <table>
+          <tr><td>Best time to visit</td><td>{{PRACTICAL_BEST_TIME}}</td></tr>
+          <tr><td>Getting there</td>     <td>{{PRACTICAL_GETTING_THERE}}</td></tr>
+          <tr><td>Getting around</td>    <td>{{PRACTICAL_GETTING_AROUND}}</td></tr>
+          <tr><td>Stay</td>              <td>{{PRACTICAL_STAY}}</td></tr>
+          <tr><td>Must eat</td>          <td>{{PRACTICAL_FOOD}}</td></tr>
+          <tr><td>Budget (per day)</td>  <td>{{PRACTICAL_BUDGET}}</td></tr>
+          <tr><td>Pro tip</td>           <td>{{PRACTICAL_TIP}}</td></tr>
+        </table>
+      </div>
+
+      <!-- ── SOURCES ─────────────────────────────────────────── -->
+      <div class="ts-sources">
+        <p class="ts-sources-label">// resources &amp; further reading</p>
+        <ul>
+          <li><a href="{{SOURCE_1_URL}}" target="_blank" rel="noopener">{{SOURCE_1_LABEL}}</a></li>
+          <li><a href="{{SOURCE_2_URL}}" target="_blank" rel="noopener">{{SOURCE_2_LABEL}}</a></li>
+          <li><a href="{{SOURCE_3_URL}}" target="_blank" rel="noopener">{{SOURCE_3_LABEL}}</a></li>
+          <li><a href="{{SOURCE_4_URL}}" target="_blank" rel="noopener">{{SOURCE_4_LABEL}}</a></li>  <!-- optional -->
+        </ul>
+      </div>
+
+      <!-- Tags -->
+      <div class="ts-tags">
+        <span class="ts-tag">{{TAG_1}}</span>
+        <span class="ts-tag">{{TAG_2}}</span>
+        <span class="ts-tag">{{TAG_3}}</span>
+        <span class="ts-tag">{{TAG_4}}</span>  <!-- optional -->
+        <span class="ts-tag">{{TAG_5}}</span>  <!-- optional -->
+      </div>
+
+    </article>
+
+  </main>
+
+  <!-- ░░ FOOTER — update date only ░░ -->
+  <footer class="ts-footer">
+    <p>Written by <a href="../../index.html">Shweta Suryavanshi</a> · {{DATE}}</p>
+  </footer>
+
+</body>
+</html>
+
+<!--
+═══════════════════════════════════════════════════════════
+  CHECKLIST BEFORE PUBLISHING
+═══════════════════════════════════════════════════════════
+  [ ] All {{PLACEHOLDERS}} replaced with real content
+  [ ] Remove optional lines/rows that are not needed
+        (e.g. SNAPSHOT_6, SECTION_2_PARAGRAPH_3,
+         SECTION_3_PARAGRAPH_2, HIGHLIGHT_4/5, SOURCE_4,
+         TAG_4/5)
+  [ ] File saved as:  blogs/your-destination-slug.html
+        (lowercase, hyphens — e.g. kyoto-spring-2026.html)
+  [ ] Add a new <article class="blog-card"> in index.html
+      inside the .blogs-track div
+  [ ] Test the "Back to Portfolio" link works
+═══════════════════════════════════════════════════════════
+
+  FULL LLM PROMPT (copy-paste ready):
+═══════════════════════════════════════════════════════════
+  I want to write a travel story blog post about "DESTINATION"
+  for my developer portfolio. Fill in this HTML template.
+
+  Use a personal, sensory, reflective tone — like a travel
+  journal entry written the evening after a long day exploring.
+  Write:
+    - A vivid 1–2 sentence subtitle / hook with sensory detail
+    - Journey snapshot: 5–6 quick-glance trip facts
+    - Section 1 "Arrival / First Impressions" — 2 paragraphs,
+      set the scene, describe what you saw/smelt/heard first
+    - A pull-quote blockquote — one vivid moment or feeling
+    - Section 2 "The Heart of It" — 2–3 paragraphs, main
+      experiences, stand-out places, food, people, surprises
+    - A highlights box with 4–5 bullet trip highlights
+    - Section 3 "Leaving & Looking Back" — 1–2 reflective
+      paragraphs, what the place taught you, would you return?
+    - A practical info table (best time, getting there/around,
+      stay, must-eat, budget/day, one pro tip)
+    - 3–4 real source URLs with descriptive labels
+    - 4–5 relevant tags
+    - A short meta description (under 160 chars)
+    - Estimated read time (word count ÷ 200, round up)
+
+  Replace all {{PLACEHOLDER}} values. Keep HTML intact.
+═══════════════════════════════════════════════════════════
+-->

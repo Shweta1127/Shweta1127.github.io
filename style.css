@@ -612,17 +612,68 @@ a { color: var(--accent-1); text-decoration: none; }
 
 /* ─── PROJECTS ──────────────────────────────────────────────────── */
 .projects-section { background: var(--bg-secondary); }
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
+
+/* ─── BLOGS MARQUEE (infinite circular scroll) ──────────────────── */
+.blogs-marquee {
+  overflow: hidden;
+  position: relative;
+  /* extra space so lifted cards aren't clipped at the top */
+  padding-top: 16px;
+  margin-top: -16px;
+  /* fade edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-/* Featured takes 7/12 columns, others take 5/12 */
-.project-card.featured { grid-column: span 7; }
-.project-card:not(.featured) { grid-column: span 5; }
+.blogs-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: blogs-loop 30s linear infinite;
+}
 
-/* When there's only 1 non-featured per row: pair them */
+/* Pause the entire track when hovering any card */
+.blogs-marquee:hover .blogs-track {
+  animation-play-state: paused;
+}
+
+@keyframes blogs-loop {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* exactly half = one full set */
+}
+
+.blog-card {
+  flex: 0 0 300px;
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: var(--card-pad);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition:
+    box-shadow var(--t-mid) var(--ease-out),
+    transform var(--t-mid) var(--ease-out),
+    border-color var(--t-mid) var(--ease-out);
+  cursor: default;
+}
+.blog-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-5px) scale(1.02);
+  border-color: var(--border-strong);
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .blogs-track { animation: none; }
+}
+
+@media (max-width: 600px) {
+  .blog-card { flex: 0 0 80vw; }
+}
+
+
+
 .project-card:nth-child(3) { grid-column: span 6; }
 .project-card:nth-child(4) { grid-column: span 6; }
 
@@ -858,7 +909,7 @@ a { color: var(--accent-1); text-decoration: none; }
   pointer-events: none;
   z-index: 1;
   width: 10px; height: 10px;
-  border-radius: 50% 0 50% 0;
+  border-radius: 50% 0 50% 0 / 60% 0 60% 0;
   background: #f4a0bb;
   opacity: 0.8;
   animation: floatPetal linear infinite;

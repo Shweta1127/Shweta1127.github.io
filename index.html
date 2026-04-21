@@ -32,7 +32,7 @@
       <ul class="nav-links" role="list">
         <li><a href="#about"    class="nav-link" data-section="about">About</a></li>
         <li><a href="#skills"   class="nav-link" data-section="skills">Skills</a></li>
-        <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+        <li><a href="#blogs" class="nav-link" data-section="blogs">Blogs</a></li>
         <li><a href="#contact"  class="nav-link" data-section="contact">Contact</a></li>
       </ul>
 
@@ -92,7 +92,7 @@
           "Building high-performance systems with clean code, one microservice at a time."
         </p>
         <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#blogs" class="btn btn-primary">View Blogs</a>
           <a href="#contact"  class="btn btn-secondary">Say Hello</a>
         </div>
       </div>
@@ -112,7 +112,7 @@
     <section id="about" class="section about-section" aria-label="About me">
       <div class="section-container">
         <header class="section-header">
-          <span class="section-number" aria-hidden="true">01</span>
+          <!-- <span class="section-number" aria-hidden="true">01</span> -->
           <h2 class="section-title">About Me</h2>
           <div class="section-line" aria-hidden="true"></div>
         </header>
@@ -179,7 +179,7 @@
     <section id="skills" class="section skills-section" aria-label="Skills and technologies">
       <div class="section-container">
         <header class="section-header">
-          <span class="section-number" aria-hidden="true">02</span>
+          <!-- <span class="section-number" aria-hidden="true">02</span> -->
           <h2 class="section-title">Skills &amp; Tech</h2>
           <div class="section-line" aria-hidden="true"></div>
         </header>
@@ -245,84 +245,87 @@
     </section>
 
     <!-- ══════════════════════════════════════════
-         §4  PROJECTS
+         §4  BLOGS
     ══════════════════════════════════════════ -->
-    <section id="projects" class="section projects-section" aria-label="Projects">
+    <section id="blogs" class="section projects-section" aria-label="Blogs">
       <div class="section-container">
         <header class="section-header">
-          <span class="section-number" aria-hidden="true">03</span>
-          <h2 class="section-title">Projects</h2>
+          <!-- <span class="section-number" aria-hidden="true">03</span> -->
+          <h2 class="section-title">Blogs</h2>
           <div class="section-line" aria-hidden="true"></div>
         </header>
 
-        <div class="projects-grid">
+        <!-- Infinite circular marquee — duplicated set creates seamless loop -->
+        <div class="blogs-marquee" aria-label="Blogs carousel">
+          <div class="blogs-track">
 
-          <!-- Featured -->
-          <article class="project-card featured reveal" aria-label="Featured project: End-to-End Client Solution">
-            <div class="project-meta">
-              <span class="project-badge">Featured</span>
-              <div class="project-links">
-              </div>
-            </div>
-            <h3 class="project-title">End-to-End Client Onboarding</h3>
-            <p class="project-desc">Architected and implemented a complete end-to-end solution for a new client at IDEAS – Revenue Solution, resulting in high client satisfaction and onboarding of a higher number of properties. Delivered on a tight timeline through cross-functional collaboration.</p>
-            <ul class="project-tags" role="list">
-              <li>Java</li><li>Spring Boot</li><li>MySQL</li><li>AWS</li>
-            </ul>
-            <div class="project-stats">
-              <span title="Company">🏢 IDEAS – Revenue Solution</span>
-              <span title="Year">📅 2021 – Present</span>
-            </div>
-          </article>
+            <!-- SET 1 -->
+            <article class="blog-card" aria-label="Blog: Mrutyunjaya">
+              <div class="project-meta"><span class="project-badge">Books</span></div>
+              <h3 class="project-title">Mrutyunjaya</h3>
+              <p class="project-desc">A retelling of the Mahabharata from Karna's perspective — a warrior born in the wrong caste, destined for greatness but condemned by fate and circumstance. A powerful exploration of loyalty, identity, and the meaning of a hero.</p>
+              <ul class="project-tags" role="list"><li>Books</li><li>Mythology</li><li>Marathi Literature</li></ul>
+              <div class="project-stats"><a href="blogs/mrutyunjaya.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
 
-          <article class="project-card reveal" aria-label="Project: Serverless AWS Platform">
-            <div class="project-meta">
-              <span class="project-badge">Cloud</span>
-              <div class="project-links">
-              </div>
-            </div>
-            <h3 class="project-title">Serverless AWS Platform</h3>
-            <p class="project-desc">Developed serverless and containerized applications using AWS Lambda and ECS with DynamoDB and S3. Built corresponding infrastructure in Terraform with end-to-end CI/CD pipelines via GitHub Actions across TypeScript, Python, and Java services.</p>
-            <ul class="project-tags" role="list">
-              <li>AWS Lambda</li><li>ECS</li><li>Terraform</li><li>GitHub Actions</li>
-            </ul>
-            <div class="project-stats">
-              <span>🏢 IDEAS – Revenue Solution</span>
-            </div>
-          </article>
+            <article class="blog-card" aria-label="Blog: The Kite Runner">
+              <div class="project-meta"><span class="project-badge">Books</span></div>
+              <h3 class="project-title">The Kite Runner</h3>
+              <p class="project-desc">Khaled Hosseini's debut novel weaves a tale of friendship, betrayal, and redemption set against the backdrop of a turbulent Afghanistan. A story about the weight of guilt and the courage it takes to be good again.</p>
+              <ul class="project-tags" role="list"><li>Books</li><li>Fiction</li><li>Afghanistan</li></ul>
+              <div class="project-stats"><a href="blogs/the-kite-runner.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
 
-          <article class="project-card reveal" aria-label="Project: MCP Server">
-            <div class="project-meta">
-              <span class="project-badge">Backend</span>
-              <div class="project-links">
-              </div>
-            </div>
-            <h3 class="project-title">Node MCP Server</h3>
-            <p class="project-desc">Created a Node.js-based MCP (Model Context Protocol) server for a functional microservice. Also built and standardized reusable CI/CD workflows for Python and Node Lambda deployments, reducing operational overhead significantly.</p>
-            <ul class="project-tags" role="list">
-              <li>Node.js</li><li>TypeScript</li><li>MCP</li>
-            </ul>
-            <div class="project-stats">
-              <span>🏢 IDEAS – Revenue Solution</span>
-            </div>
-          </article>
+            <article class="blog-card" aria-label="Blog: The Island of Missing Trees">
+              <div class="project-meta"><span class="project-badge">Books</span></div>
+              <h3 class="project-title">The Island of Missing Trees</h3>
+              <p class="project-desc">Elif Shafak's lyrical novel tells the story of two teenagers in 1970s Cyprus, separated by war, and their daughter in present-day London who uncovers the past. Narrated in part by a fig tree — a meditation on memory, belonging, and loss.</p>
+              <ul class="project-tags" role="list"><li>Books</li><li>Fiction</li><li>Cyprus</li></ul>
+              <div class="project-stats"><a href="blogs/the-island-of-missing-trees.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
 
-          <article class="project-card reveal" aria-label="Project: ML & Deep Learning Internships">
-            <div class="project-meta">
-              <span class="project-badge">AI / ML</span>
-              <div class="project-links">
-              </div>
-            </div>
-            <h3 class="project-title">ML &amp; Deep Learning Projects</h3>
-            <p class="project-desc">Worked on a machine learning model during an internship at Persistent Systems. Earlier, at Vinvent, developed a deep learning and image processing project that improved model accuracy — building a strong foundation in AI/ML.</p>
-            <ul class="project-tags" role="list">
-              <li>Python</li><li>Deep Learning</li><li>Image Processing</li>
-            </ul>
-            <div class="project-stats">
-              <span>🏢 Persistent &amp; Vinvent</span><span>📅 2019 – 2020</span>
-            </div>
-          </article>
+            <article class="blog-card" aria-label="Blog: Yayati">
+              <div class="project-meta"><span class="project-badge">Books</span></div>
+              <h3 class="project-title">Yayati</h3>
+              <p class="project-desc">V. S. Khandekar's Jnanpith Award-winning Marathi novel reimagines the ancient king Yayati from the Mahabharata — a man cursed with old age who trades youth with his son, and the philosophical reckoning that follows.</p>
+              <ul class="project-tags" role="list"><li>Books</li><li>Mythology</li><li>Marathi Literature</li></ul>
+              <div class="project-stats"><a href="blogs/yayati.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
 
+            <!-- SET 2 — duplicate for seamless infinite loop -->
+            <article class="blog-card" aria-hidden="true">
+              <div class="project-meta"><span class="project-badge">Books</span></div>
+              <h3 class="project-title">Mrutyunjaya</h3>
+              <p class="project-desc">A retelling of the Mahabharata from Karna's perspective — a warrior born in the wrong caste, destined for greatness but condemned by fate and circumstance. A powerful exploration of loyalty, identity, and the meaning of a hero.</p>
+              <ul class="project-tags" role="list"><li>Books</li><li>Mythology</li><li>Marathi Literature</li></ul>
+              <div class="project-stats"><a href="blogs/mrutyunjaya.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
+
+            <article class="blog-card" aria-hidden="true">
+              <div class="project-meta"><span class="project-badge">Books</span></div>
+              <h3 class="project-title">The Kite Runner</h3>
+              <p class="project-desc">Khaled Hosseini's debut novel weaves a tale of friendship, betrayal, and redemption set against the backdrop of a turbulent Afghanistan. A story about the weight of guilt and the courage it takes to be good again.</p>
+              <ul class="project-tags" role="list"><li>Books</li><li>Fiction</li><li>Afghanistan</li></ul>
+              <div class="project-stats"><a href="blogs/the-kite-runner.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
+
+            <article class="blog-card" aria-hidden="true">
+              <div class="project-meta"><span class="project-badge">Books</span></div>
+              <h3 class="project-title">The Island of Missing Trees</h3>
+              <p class="project-desc">Elif Shafak's lyrical novel tells the story of two teenagers in 1970s Cyprus, separated by war, and their daughter in present-day London who uncovers the past. Narrated in part by a fig tree — a meditation on memory, belonging, and loss.</p>
+              <ul class="project-tags" role="list"><li>Books</li><li>Fiction</li><li>Cyprus</li></ul>
+              <div class="project-stats"><a href="blogs/the-island-of-missing-trees.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
+
+            <article class="blog-card" aria-hidden="true">
+              <div class="project-meta"><span class="project-badge">Books</span></div>
+              <h3 class="project-title">Yayati</h3>
+              <p class="project-desc">V. S. Khandekar's Jnanpith Award-winning Marathi novel reimagines the ancient king Yayati from the Mahabharata — a man cursed with old age who trades youth with his son, and the philosophical reckoning that follows.</p>
+              <ul class="project-tags" role="list"><li>Books</li><li>Mythology</li><li>Marathi Literature</li></ul>
+              <div class="project-stats"><a href="blogs/yayati.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
+
+          </div>
         </div>
       </div>
     </section>
@@ -333,7 +336,7 @@
     <section id="contact" class="section contact-section" aria-label="Contact">
       <div class="section-container">
         <header class="section-header">
-          <span class="section-number" aria-hidden="true">04</span>
+          <!-- <span class="section-number" aria-hidden="true">04</span> -->
           <h2 class="section-title">Let's Connect</h2>
           <div class="section-line" aria-hidden="true"></div>
         </header>
@@ -354,13 +357,13 @@
                 <span class="contact-value">official.shwetasuryavanshi@gmail.com</span>
               </div>
             </a>
-            <a href="tel:+919604804696" class="contact-card">
+            <!-- <a href="tel:+919604804696" class="contact-card">
               <span class="contact-icon">◎</span>
               <div class="contact-info">
                 <span class="contact-label">Phone</span>
                 <span class="contact-value">+91 9604804696</span>
               </div>
-            </a>
+            </a> -->
             <a href="https://github.com/Shweta1127" target="_blank" rel="noopener noreferrer" class="contact-card">
               <span class="contact-icon">⌥</span>
               <div class="contact-info">

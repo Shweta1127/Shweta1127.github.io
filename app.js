@@ -330,9 +330,15 @@ const HeroCanvas = (() => {
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
 
-        // Draw a stylized petal shape
+        // Draw a stylized petal shape (teardrop/leaf)
         ctx.beginPath();
-        ctx.ellipse(0, 0, p.size, p.size * 0.55, 0, 0, Math.PI * 2);
+        ctx.moveTo(0, -p.size);                              // Top point
+        ctx.bezierCurveTo(p.size * 0.5, -p.size * 0.5,     // Control 1
+                          p.size * 0.6, p.size * 0.3,      // Control 2
+                          0, p.size * 0.8);                 // End right side
+        ctx.bezierCurveTo(-p.size * 0.6, p.size * 0.3,     // Control 3
+                          -p.size * 0.5, -p.size * 0.5,    // Control 4
+                          0, -p.size);                       // Back to top
         ctx.fillStyle = `hsla(${p.hue}, ${p.sat}%, ${p.lit}%, 0.6)`;
         ctx.fill();
 
@@ -501,7 +507,7 @@ const ScrollReveal = (() => {
 ═════════════════════════════════════════════════════════════════ */
 const NavManager = (() => {
 
-  const SECTIONS = ['hero', 'about', 'skills', 'projects', 'contact'];
+  const SECTIONS = ['hero', 'about', 'skills', 'blogs', 'contact'];
 
   function updateActiveLink() {
     const scrollY = window.scrollY + window.innerHeight * 0.35;
@@ -695,9 +701,13 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => AutoTheme.reset());
   });
 
+  // 11. Blog carousel (infinite CSS marquee — no JS needed, stub kept for future use)
+
   console.log(
     '%c SHWETA SURYAVANSHI PORTFOLIO ',
     'background:#00f5ff;color:#000;font-weight:bold;padding:4px 8px',
     '\nPress 1 = VOID, 2 = SAKURA, 3 = TERMINAL to switch themes.'
   );
 });
+
+

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║          TECH NEWS BLOG TEMPLATE — dev.shweta                   ║
+║                                                                  ║
+║  HOW TO USE WITH AN LLM:                                         ║
+║  Give this file to your LLM along with the prompt below.         ║
+║  Replace every {{PLACEHOLDER}} with the real content.            ║
+║                                                                  ║
+║  PROMPT TO GIVE YOUR LLM:                                        ║
+║  ─────────────────────────────────────────────────────────────   ║
+║  "I want to write a tech news blog post about '{{TOPIC}}'.       ║
+║   Fill in the HTML template below for my personal portfolio.     ║
+║   Write a punchy 2-line subtitle, a TL;DR with 3–4 bullet        ║
+║   points, 3 content sections with insightful analysis, one       ║
+║   hot-take blockquote, and 4–5 relevant sources.                 ║
+║   Keep the tone sharp, curious, and direct — like a developer    ║
+║   explaining something exciting to another developer.            ║
+║   Replace all {{PLACEHOLDER}} values with real content."         ║
+║                                                                  ║
+║  SAVE THE OUTPUT AS:  blogs/your-topic-slug.html                 ║
+║  Then add a card in index.html blogs section pointing to it.     ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <title>{{ARTICLE_TITLE}} — dev.shweta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/tech-news.css" />
+</head>
+<body>
+
+  <!-- ░░ NAV — do not change ░░ -->
+  <nav class="tn-nav">
+    <a href="../../index.html#blogs" class="tn-nav-back"><span>←</span> Back to Portfolio</a>
+    <span class="tn-nav-logo">dev.shweta / tech</span>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <header class="tn-hero">
+    <div class="tn-hero-inner">
+
+      <!-- Category. Examples: ⚡ AI · ☁ Cloud · 🔧 Tools · 🔒 Security · 🧠 Deep Dive -->
+      <span class="tn-category">{{CATEGORY_EMOJI}} {{CATEGORY_LABEL}}</span>
+
+      <!-- Main headline. Wrap a key word in <span class="highlight"> for blue accent -->
+      <h1 class="tn-title">{{ARTICLE_TITLE}}</h1>
+
+      <!-- 1–2 sentence subtitle / hook -->
+      <p class="tn-subtitle">{{SUBTITLE}}</p>
+
+      <div class="tn-meta">
+        <span><span class="dot"></span> Live</span>   <!-- remove if not a news post -->
+        <span>✍ Shweta Suryavanshi</span>
+        <span>📅 {{DATE}}</span>                     <!-- e.g. April 19, 2026 -->
+        <span>⏱ {{READ_TIME}} min read</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ░░ MAIN CONTENT ░░ -->
+  <main class="tn-body">
+
+    <!-- ── TL;DR ──────────────────────────────────────────────
+         3–4 bullet points summarising the key takeaways.
+    ──────────────────────────────────────────────────────── -->
+    <div class="tn-tldr">
+      <p class="tn-tldr-label">// TL;DR — key takeaways</p>
+      <ul>
+        <li>{{TLDR_1}}</li>
+        <li>{{TLDR_2}}</li>
+        <li>{{TLDR_3}}</li>
+        <li>{{TLDR_4}}</li>  <!-- optional — remove if not needed -->
+      </ul>
+    </div>
+
+    <!-- ── ARTICLE ────────────────────────────────────────────
+         Use <h2> for section headings (LLM can name these).
+         Suggested structure:
+           1. What Happened  — the news / announcement
+           2. Why It Matters — technical / industry impact
+           3. My Take        — personal analysis / opinion
+         Add more sections as needed.
+         Use <code> for inline tech terms, <pre><code> for
+         code blocks, and <blockquote> for hot takes.
+    ──────────────────────────────────────────────────────── -->
+    <article class="tn-article">
+
+      <h2>{{SECTION_1_HEADING}}</h2>
+      <!-- 2 paragraphs: what happened, who announced it, key facts -->
+      <p>{{SECTION_1_PARAGRAPH_1}}</p>
+      <p>{{SECTION_1_PARAGRAPH_2}}</p>
+
+      <h2>{{SECTION_2_HEADING}}</h2>
+      <!-- 2 paragraphs: why this matters technically or for the industry -->
+      <p>{{SECTION_2_PARAGRAPH_1}}</p>
+      <p>{{SECTION_2_PARAGRAPH_2}}</p>
+
+      <!-- Optional code block — remove if not applicable -->
+      <pre><code>{{CODE_SNIPPET}}</code></pre>
+
+      <!-- Hot take / strong opinion blockquote -->
+      <blockquote>
+        <span class="label">// hot take</span>
+        {{HOT_TAKE}}
+        <cite>— Shweta Suryavanshi</cite>
+      </blockquote>
+
+      <h2>{{SECTION_3_HEADING}}</h2>
+      <!-- 1–2 paragraphs: personal analysis, what to watch next -->
+      <p>{{SECTION_3_PARAGRAPH_1}}</p>
+      <p>{{SECTION_3_PARAGRAPH_2}}</p>  <!-- optional -->
+
+      <!-- ── SOURCES ─────────────────────────────────────── -->
+      <div class="tn-sources">
+        <p class="tn-sources-label">// sources &amp; further reading</p>
+        <ul>
+          <li><a href="{{SOURCE_1_URL}}" target="_blank" rel="noopener">{{SOURCE_1_LABEL}}</a></li>
+          <li><a href="{{SOURCE_2_URL}}" target="_blank" rel="noopener">{{SOURCE_2_LABEL}}</a></li>
+          <li><a href="{{SOURCE_3_URL}}" target="_blank" rel="noopener">{{SOURCE_3_LABEL}}</a></li>
+          <li><a href="{{SOURCE_4_URL}}" target="_blank" rel="noopener">{{SOURCE_4_LABEL}}</a></li>  <!-- optional -->
+        </ul>
+      </div>
+
+      <!-- Tags -->
+      <div class="tn-tags">
+        <span class="tn-tag">{{TAG_1}}</span>
+        <span class="tn-tag">{{TAG_2}}</span>
+        <span class="tn-tag">{{TAG_3}}</span>
+        <span class="tn-tag">{{TAG_4}}</span>  <!-- optional -->
+        <span class="tn-tag">{{TAG_5}}</span>  <!-- optional -->
+      </div>
+
+    </article>
+
+  </main>
+
+  <!-- ░░ FOOTER — update date only ░░ -->
+  <footer class="tn-footer">
+    <p>Written by <a href="../../index.html">Shweta Suryavanshi</a> · {{DATE}}</p>
+  </footer>
+
+</body>
+</html>
+
+<!--
+═══════════════════════════════════════════════════════════
+  CHECKLIST BEFORE PUBLISHING
+═══════════════════════════════════════════════════════════
+  [ ] All {{PLACEHOLDERS}} replaced with real content
+  [ ] Remove optional lines that are not needed
+        (e.g. TLDR_4, SECTION_3_PARAGRAPH_2, SOURCE_4,
+         the <pre><code> block if no code snippet)
+  [ ] File saved as:  blogs/your-topic-slug.html
+        (lowercase, hyphens — e.g. openai-o3-release.html)
+  [ ] Add a new <article class="blog-card"> in index.html
+      inside the .blogs-track div
+  [ ] Test the "Back to Portfolio" link works
+═══════════════════════════════════════════════════════════
+
+  FULL LLM PROMPT (copy-paste ready):
+═══════════════════════════════════════════════════════════
+  I want to write a tech news blog post about "TOPIC" for
+  my developer portfolio. Fill in this HTML template.
+
+  Use a sharp, analytical, developer-to-developer tone.
+  Write:
+    - A punchy 1–2 sentence subtitle / hook
+    - TL;DR with 3–4 bullet key takeaways
+    - Section 1 "What Happened" — 2 paragraphs of facts
+    - Section 2 "Why It Matters" — 2 paragraphs of impact
+    - One "hot take" blockquote with your own sharp opinion
+    - Section 3 "My Take" — 1–2 paragraphs of analysis
+    - 4 real source URLs with descriptive labels
+    - 4–5 relevant tags
+    - A short meta description (under 160 chars)
+    - Estimated read time (word count ÷ 200, round up)
+    - Include a short code snippet if relevant, else remove
+      the <pre><code> block entirely
+
+  Replace all {{PLACEHOLDER}} values. Keep HTML intact.
+═══════════════════════════════════════════════════════════
+-->
