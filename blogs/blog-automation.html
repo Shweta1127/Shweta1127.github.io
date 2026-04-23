@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="How I built an automated AI-powered blog pipeline using Node.js, Hugging Face, and GitHub Pages — deployed on Vercel Functions and triggered by a cron job." />
+  <title>Building a Blog Automation Pipeline with AI — dev.shweta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tech-news.css" />
+</head>
+<body>
+
+  <!-- ░░ NAV ░░ -->
+  <nav class="tn-nav">
+    <a href="../index.html#blogs" class="tn-nav-back"><span>←</span> Back to Portfolio</a>
+    <span class="tn-nav-logo">dev.shweta / tech</span>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <header class="tn-hero">
+    <div class="tn-hero-inner">
+      <span class="tn-category">🤖 Automation</span>
+      <h1 class="tn-title">I Built a <span class="highlight">Blog Automation</span> Pipeline with AI</h1>
+      <p class="tn-subtitle">From a Vercel cron job to GitHub Pages — one scheduled function run and a blog post is live. Here's exactly how it works.</p>
+      <div class="tn-meta">
+        <span>✍ Shweta Suryavanshi</span>
+        <span>📅 April 23, 2026</span>
+        <span>⏱ 6 min read</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ░░ MAIN CONTENT ░░ -->
+  <main class="tn-body">
+
+    <!-- TL;DR -->
+    <div class="tn-tldr">
+      <p class="tn-tldr-label">// TL;DR — key takeaways</p>
+      <ul>
+        <li>A Node.js pipeline that picks a book, generates an AI summary via the Hugging Face API, renders it into an HTML template, and pushes it to GitHub Pages.</li>
+        <li>The whole flow — select → generate → template → publish — runs automatically on a schedule via a Vercel cron job.</li>
+        <li>The pipeline is deployed as a Vercel Serverless Function; no server to maintain, no manual triggers needed.</li>
+        <li>Books are permanently removed from the list after selection, so no duplicates ever ship.</li>
+        <li>All secrets (HF token, GitHub PAT) live in Vercel environment variables; everything else is config-driven.</li>
+      </ul>
+    </div>
+
+    <article class="tn-article">
+
+      <h2>What Is This, and Why Did I Build It?</h2>
+      <p>
+        I read a lot. I also write about what I read — but the gap between finishing a book and actually
+        publishing a polished blog post used to span days of friction: open a file, write a summary from
+        scratch, fiddle with HTML, copy-paste into my site, push to GitHub. Every step was manual, every
+        step was a chance to procrastinate.
+      </p>
+      <p>
+        So I automated it. The <strong>Blog Automation</strong> project is a Node.js pipeline that strings
+        together four concerns — book selection, AI content generation, HTML templating, and GitHub publishing —
+        into one command. The pipeline lives at <code>src/index.js</code> and is driven entirely by
+        configuration and environment variables, making it trivial to extend to new content types.
+        The whole thing is deployed as a <strong>Vercel Serverless Function</strong> and fired automatically
+        by a <strong>Vercel cron job</strong> — zero manual intervention once it's set up.
+      </p>
+
+      <h2>The Pipeline — Four Steps, One Command</h2>
+      <p>
+        The entry point (<code>src/index.js</code>) orchestrates four discrete modules. Each module owns
+        exactly one responsibility, which keeps the code easy to test and swap out independently.
+        Locally you can run it manually; in production it's invoked by Vercel on a schedule.
+      </p>
+
+      <pre><code># Install once
+npm install
+
+# Create .env with your tokens (local dev)
+HF_TOKEN=hf_your_token_here
+GITHUB_OWNER=your_github_username
+GITHUB_REPO=your_repo_name
+GITHUB_TOKEN=github_pat_123...
+
+# Run the full pipeline locally
+node src/index.js</code></pre>
+
+      <p>
+        <strong>Step 1 — Book Selection (<code>src/books.js</code>):</strong> Reads a curated list of books
+        and picks one at random. Critically, it then <em>permanently removes</em> that entry from the list,
+        so the same book can never be published twice. This is a deliberately destructive write — it's the
+        simplest possible deduplication strategy and it works perfectly for this use-case.
+      </p>
+      <p>
+        <strong>Step 2 — Prompt Construction (<code>src/promptBuilder.js</code>):</strong> Takes the selected
+        book's metadata and builds a structured prompt for the language model. The prompt instructs the LLM
+        to produce a specific JSON shape — title, subtitle, TL;DR bullets, sections — that the template
+        engine can consume directly without any post-processing guesswork.
+      </p>
+      <p>
+        <strong>Step 3 — AI Generation (<code>src/hfClient.js</code>):</strong> Sends the prompt to the
+        Hugging Face Inference API. The model and endpoint are configurable via <code>src/config.js</code>,
+        so swapping to a different model is a one-line change. The client handles retries and surfaces
+        meaningful errors if the API key is missing or rate-limited.
+      </p>
+      <p>
+        <strong>Step 4 — Template + Publish (<code>src/templateEngine.js</code> &amp; <code>src/github.js</code>):</strong>
+        The AI response is injected into <code>templates/Books-Template.html</code> by replacing named
+        placeholders. The rendered HTML is then pushed to the GitHub repository via the GitHub Contents API,
+        which triggers a GitHub Pages deploy automatically — no manual <code>git push</code> needed.
+      </p>
+
+      <h2>Deployed on Vercel, Triggered by a Cron Job</h2>
+      <p>
+        The pipeline function is deployed to <strong>Vercel Serverless Functions</strong>. Vercel's
+        <code>vercel.json</code> config defines a cron schedule that hits the function endpoint at a set
+        interval — no always-on server, no EC2 instance, no manual babysitting. Vercel spins up the
+        function, runs the full pipeline, and tears it down. The only infrastructure cost is the function
+        execution time, which for this workload is negligible.
+      </p>
+
+      <pre><code>// vercel.json
+{
+  "crons": [
+    {
+      "path": "/api/run-pipeline",
+      "schedule": "0 9 * * 1"
+    }
+  ]
+}</code></pre>
+
+      <p>
+        The schedule above fires every <strong>Monday at 9 AM UTC</strong>. Vercel calls
+        <code>/api/run-pipeline</code>, which executes the full select → generate → template → publish
+        flow. All secrets — <code>HF_TOKEN</code>, <code>GITHUB_TOKEN</code> — are stored as Vercel
+        environment variables, so nothing sensitive ever lives in the repo.
+      </p>
+
+      <blockquote>
+        <span class="label">// hot take</span>
+        Serverless + cron is the most underrated combo in indie dev. You get scheduled automation
+        with zero infrastructure overhead — and Vercel makes it a three-line config. The hard part
+        was never the deployment; it was building a pipeline worth deploying.
+        <cite>— Shweta Suryavanshi</cite>
+      </blockquote>
+
+      <h2>What I'd Do Differently (and What's Next)</h2>
+      <p>
+        The current pipeline is intentionally minimal — it does one thing end-to-end and does it reliably.
+        If I were to scale this up, I'd introduce a proper queue (even a simple JSON file with a
+        <code>status</code> field) so that failed runs can be retried without re-consuming the book from the
+        list. I'd also add a dry-run mode that writes the generated HTML to a staging branch for review
+        before the cron job merges it to main and triggers the GitHub Pages deploy.
+      </p>
+      <p>
+        The next content type I want to automate is tech news recaps — weekly roundups generated from a
+        curated list of RSS feeds, summarised by an LLM, and published on a separate cron schedule via
+        Vercel. The module structure already makes this straightforward: swap <code>books.js</code> for an
+        RSS reader, update the prompt template, point the template engine at the tech-news HTML template,
+        and add a second entry to <code>vercel.json</code> crons. The GitHub publisher and the config layer
+        don't need to change at all.
+      </p>
+
+      <!-- Sources -->
+      <div class="tn-sources">
+        <p class="tn-sources-label">// sources &amp; further reading</p>
+        <ul>
+          <li><a href="https://huggingface.co/docs/api-inference/index" target="_blank" rel="noopener">Hugging Face Inference API — Official Docs</a></li>
+          <li><a href="https://docs.github.com/en/rest/repos/contents" target="_blank" rel="noopener">GitHub REST API — Repository Contents</a></li>
+          <li><a href="https://vercel.com/docs/cron-jobs" target="_blank" rel="noopener">Vercel Cron Jobs — Official Docs</a></li>
+          <li><a href="https://vercel.com/docs/functions" target="_blank" rel="noopener">Vercel Serverless Functions — Official Docs</a></li>
+          <li><a href="https://nodejs.org/en/docs" target="_blank" rel="noopener">Node.js Documentation</a></li>
+          <li><a href="https://docs.github.com/en/pages" target="_blank" rel="noopener">GitHub Pages — Getting Started</a></li>
+        </ul>
+      </div>
+
+      <!-- Tags -->
+      <div class="tn-tags">
+        <span class="tn-tag">Node.js</span>
+        <span class="tn-tag">Automation</span>
+        <span class="tn-tag">Hugging Face</span>
+        <span class="tn-tag">GitHub Pages</span>
+        <span class="tn-tag">Vercel</span>
+        <span class="tn-tag">Cron Jobs</span>
+        <span class="tn-tag">Serverless</span>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="tn-footer">
+    <p>Written by <a href="../index.html">Shweta Suryavanshi</a> · April 23, 2026</p>
+  </footer>
+
+</body>
+</html>
