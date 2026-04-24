@@ -61,7 +61,7 @@
   --text-shadow-hero:  0 0 50px rgba(0,245,255,0.35), 0 0 100px rgba(0,245,255,0.1);
 
   /* --- Layout --- */
-  --section-pad:       clamp(70px, 10vw, 120px) 24px;
+  --section-pad:       clamp(44px, 6vw, 72px) 24px;
   --card-pad:          28px;
   --nav-height:        68px;
   --max-width:         1160px;
@@ -153,7 +153,7 @@
   --shadow-glow:       0 4px 20px rgba(217, 79, 114, 0.22);
   --text-shadow-hero:  none;
 
-  --section-pad:       clamp(70px, 10vw, 120px) 24px;
+  --section-pad:       clamp(44px, 6vw, 72px) 24px;
   --card-pad:          32px;
   --nav-height:        72px;
   --max-width:         1160px;
@@ -241,7 +241,7 @@
   --shadow-glow:       0 0 8px var(--accent-1), 0 0 20px rgba(0,255,65,0.35);
   --text-shadow-hero:  0 0 20px rgba(0,255,65,0.5), 0 0 60px rgba(0,255,65,0.15);
 
-  --section-pad:       clamp(60px, 8vw, 100px) 24px;
+  --section-pad:       clamp(40px, 5vw, 64px) 24px;
   --card-pad:          24px;
   --nav-height:        56px;
   --max-width:         1160px;
