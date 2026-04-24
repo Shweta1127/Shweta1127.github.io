@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="void">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />       
+  <title>All Blogs — dev.shweta</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="themes.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░ SCANLINE OVERLAY — visible in TERMINAL theme only ░░ -->
+  <div class="crt-scanlines" aria-hidden="true"></div>
+
+  <!-- ░░ SITE HEADER (same as index) ░░ -->
+  <header class="site-header" role="banner">
+    <nav class="nav-container" aria-label="Main navigation">
+
+      <a href="index.html#hero" class="nav-logo" aria-label="Back to portfolio">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">dev.shweta</span>
+        <span class="logo-bracket">]</span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#about"   class="nav-link">About</a></li>
+        <li><a href="index.html#skills"  class="nav-link">Skills</a></li>
+        <li><a href="blogs.html"         class="nav-link active">Blogs</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Theme Switcher -->
+      <div class="theme-switcher" role="group" aria-label="Choose site theme">
+        <button class="theme-btn active" data-theme-target="void"
+                aria-label="VOID — Cyberpunk theme" title="VOID">
+          <span class="theme-pip" aria-hidden="true"></span>
+          <span class="theme-name">VOID</span>
+        </button>
+        <button class="theme-btn" data-theme-target="sakura"
+                aria-label="SAKURA — Anime soft theme" title="SAKURA">
+          <span class="theme-pip" aria-hidden="true"></span>
+          <span class="theme-name">SAKURA</span>
+        </button>
+        <button class="theme-btn" data-theme-target="terminal"
+                aria-label="TERMINAL — Retro hacker theme" title="TERMINAL">
+          <span class="theme-pip" aria-hidden="true"></span>
+          <span class="theme-name">TERMINAL</span>
+        </button>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ░░ MAIN ░░ -->
+  <main id="main-content">
+    <div class="blogs-page">
+
+      <!-- Page header -->
+      <header class="blogs-page-header">
+        <h1>All <span>Blogs</span></h1>
+        <p>Writing about books I've read, tech I've built, and ideas worth sharing.</p>
+      </header>
+
+      <!-- Controls -->
+      <div class="blogs-controls">
+        <div class="blogs-search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            type="search"
+            id="blogs-search"
+            placeholder="Search blogs…"
+            aria-label="Search blogs"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="blogs-filter-tabs" role="tablist" aria-label="Filter by category">
+          <button class="blog-tab active" data-filter="all"     role="tab" aria-selected="true">All</button>
+          <button class="blog-tab"        data-filter="books"   role="tab" aria-selected="false">Books</button>
+          <button class="blog-tab"        data-filter="tech"    role="tab" aria-selected="false">Tech</button>
+        </div>
+      </div>
+
+      <!-- Results count -->
+      <p class="blogs-count"><span id="blogs-result-count">6</span> blogs found</p>
+
+      <!-- Grid -->
+      <div class="blogs-grid" id="blogs-grid">
+
+        <article class="blog-card" data-category="books"
+                 data-title="mrutyunjaya"
+                 data-tags="books mythology marathi literature">
+          <div class="project-meta"><span class="project-badge">Books</span></div>
+          <h3 class="project-title">Mrutyunjaya</h3>
+          <p class="project-desc">A retelling of the Mahabharata from Karna's perspective — a warrior born in the wrong caste, destined for greatness but condemned by fate and circumstance. A powerful exploration of loyalty, identity, and the meaning of a hero.</p>
+          <ul class="project-tags" role="list"><li>Books</li><li>Mythology</li><li>Marathi Literature</li></ul>
+          <div class="project-stats"><a href="blogs/mrutyunjaya.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+        </article>
+
+        <article class="blog-card" data-category="books"
+                 data-title="the kite runner"
+                 data-tags="books fiction afghanistan">
+          <div class="project-meta"><span class="project-badge">Books</span></div>
+          <h3 class="project-title">The Kite Runner</h3>
+          <p class="project-desc">Khaled Hosseini's debut novel weaves a tale of friendship, betrayal, and redemption set against the backdrop of a turbulent Afghanistan. A story about the weight of guilt and the courage it takes to be good again.</p>
+          <ul class="project-tags" role="list"><li>Books</li><li>Fiction</li><li>Afghanistan</li></ul>
+          <div class="project-stats"><a href="blogs/the-kite-runner.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+        </article>
+
+        <article class="blog-card" data-category="books"
+                 data-title="the island of missing trees"
+                 data-tags="books fiction cyprus memory belonging">
+          <div class="project-meta"><span class="project-badge">Books</span></div>
+          <h3 class="project-title">The Island of Missing Trees</h3>
+          <p class="project-desc">Elif Shafak's lyrical novel tells the story of two teenagers in 1970s Cyprus, separated by war, and their daughter in present-day London who uncovers the past. Narrated in part by a fig tree — a meditation on memory, belonging, and loss.</p>
+          <ul class="project-tags" role="list"><li>Books</li><li>Fiction</li><li>Cyprus</li></ul>
+          <div class="project-stats"><a href="blogs/the-island-of-missing-trees.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+        </article>
+
+        <article class="blog-card" data-category="books"
+                 data-title="yayati"
+                 data-tags="books mythology marathi literature mahabharata">
+          <div class="project-meta"><span class="project-badge">Books</span></div>
+          <h3 class="project-title">Yayati</h3>
+          <p class="project-desc">V. S. Khandekar's Jnanpith Award-winning Marathi novel reimagines the ancient king Yayati from the Mahabharata — a man cursed with old age who trades youth with his son, and the philosophical reckoning that follows.</p>
+          <ul class="project-tags" role="list"><li>Books</li><li>Mythology</li><li>Marathi Literature</li></ul>
+          <div class="project-stats"><a href="blogs/yayati.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+        </article>
+
+        <article class="blog-card" data-category="tech"
+                 data-title="blog automation pipeline"
+                 data-tags="node.js automation hugging face github pages vercel cron serverless ai">
+          <div class="project-meta"><span class="project-badge">Tech</span></div>
+          <h3 class="project-title">Blog Automation Pipeline</h3>
+          <p class="project-desc">How I built an AI-powered pipeline deployed on Vercel Functions — triggered by a cron job — that selects a book, generates a summary with Hugging Face, renders it into an HTML template, and publishes it to GitHub Pages automatically.</p>
+          <ul class="project-tags" role="list"><li>Node.js</li><li>Vercel</li><li>Hugging Face</li><li>Cron</li></ul>
+          <div class="project-stats"><a href="blogs/blog-automation.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+        </article>
+
+        <article class="blog-card" data-category="tech"
+                 data-title="youtube shorts automation"
+                 data-tags="python automation youtube api hugging face pexels moviepy vercel cron jobs tts shorts video news">
+          <div class="project-meta"><span class="project-badge">Tech</span></div>
+          <h3 class="project-title">YouTube Shorts Automation</h3>
+          <p class="project-desc">Fetch live tech news → summarise with Hugging Face AI → TTS voiceover → overlay on a Pexels stock video → upload as a YouTube Short. Two decoupled cron jobs, zero manual steps.</p>
+          <ul class="project-tags" role="list"><li>Python</li><li>Hugging Face</li><li>Pexels API</li><li>YouTube API</li></ul>
+          <div class="project-stats"><a href="blogs/youtube-shorts-automation.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+        </article>
+
+      </div>
+      <!-- end #blogs-grid -->
+
+    </div>
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy">
+        <span>© 2025 Shweta Suryavanshi</span>
+        <span class="footer-sep" aria-hidden="true"> · </span>
+        <span>Software Developer</span>
+        <span class="footer-sep" aria-hidden="true"> · </span>
+        <span>Pune, India</span>
+      </p>
+      <p class="footer-theme">
+        Theme: <span id="footer-theme-name">VOID</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    (function () {
+      const grid        = document.getElementById('blogs-grid');
+      const searchInput = document.getElementById('blogs-search');
+      const countEl     = document.getElementById('blogs-result-count');
+      const filterBtns  = document.querySelectorAll('.blogs-filter-tabs .blog-tab');
+      const cards       = Array.from(grid.querySelectorAll('.blog-card'));
+
+      let activeFilter = 'all';
+      let searchQuery  = '';
+
+      function applyFilters() {
+        let visible = 0;
+
+        cards.forEach(card => {
+          const category = card.dataset.category || '';
+          const title    = card.dataset.title || '';
+          const tags     = card.dataset.tags  || '';
+          const searchable = (title + ' ' + tags).toLowerCase();
+
+          const matchesFilter = activeFilter === 'all' || category === activeFilter;
+          const matchesSearch = searchQuery === '' || searchable.includes(searchQuery);
+
+          const show = matchesFilter && matchesSearch;
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+
+        countEl.textContent = visible;
+
+        // Empty state
+        let emptyMsg = grid.querySelector('.blogs-empty');
+        if (visible === 0) {
+          if (!emptyMsg) {
+            emptyMsg = document.createElement('div');
+            emptyMsg.className = 'blogs-empty';
+            emptyMsg.innerHTML = 'No blogs found for <span>"' + searchQuery + '"</span> in <span>' + activeFilter + '</span>.';
+            grid.appendChild(emptyMsg);
+          }
+        } else if (emptyMsg) {
+          emptyMsg.remove();
+        }
+      }
+
+      // Filter tab clicks
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          activeFilter = btn.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      // Search input
+      searchInput.addEventListener('input', () => {
+        searchQuery = searchInput.value.trim().toLowerCase();
+        applyFilters();
+      });
+    })();
+  </script>
+</body>
+</html>

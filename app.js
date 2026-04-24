@@ -703,6 +703,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 11. Blog carousel (infinite CSS marquee — no JS needed, stub kept for future use)
 
+  // 11. Blog index-page tabs (filter marquee cards by category)
+  const blogTabs = document.querySelectorAll('.blog-tabs .blog-tab');
+  if (blogTabs.length) {
+    blogTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        blogTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const filter = tab.dataset.tab;
+        // Show/hide cards in both SET 1 and SET 2 of the marquee
+        document.querySelectorAll('.blogs-track .blog-card').forEach(card => {
+          const category = card.dataset.category || 'books';
+          card.style.display = (filter === 'all' || category === filter) ? '' : 'none';
+        });
+      });
+    });
+  }
+
   console.log(
     '%c SHWETA SURYAVANSHI PORTFOLIO ',
     'background:#00f5ff;color:#000;font-weight:bold;padding:4px 8px',

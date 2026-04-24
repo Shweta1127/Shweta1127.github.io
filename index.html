@@ -255,12 +255,19 @@
           <div class="section-line" aria-hidden="true"></div>
         </header>
 
+        <!-- Blog category tabs -->
+        <div class="blog-tabs" role="tablist" aria-label="Filter blogs by category">
+          <button class="blog-tab active" data-tab="all" role="tab" aria-selected="true">All</button>
+          <button class="blog-tab" data-tab="books" role="tab" aria-selected="false">Books</button>
+          <button class="blog-tab" data-tab="tech" role="tab" aria-selected="false">Tech</button>
+        </div>
+
         <!-- Infinite circular marquee — duplicated set creates seamless loop -->
         <div class="blogs-marquee" aria-label="Blogs carousel">
           <div class="blogs-track">
 
             <!-- SET 1 -->
-            <article class="blog-card" aria-label="Blog: Mrutyunjaya">
+            <article class="blog-card" aria-label="Blog: Mrutyunjaya" data-category="books">
               <div class="project-meta"><span class="project-badge">Books</span></div>
               <h3 class="project-title">Mrutyunjaya</h3>
               <p class="project-desc">A retelling of the Mahabharata from Karna's perspective — a warrior born in the wrong caste, destined for greatness but condemned by fate and circumstance. A powerful exploration of loyalty, identity, and the meaning of a hero.</p>
@@ -268,7 +275,7 @@
               <div class="project-stats"><a href="blogs/mrutyunjaya.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
             </article>
 
-            <article class="blog-card" aria-label="Blog: The Kite Runner">
+            <article class="blog-card" aria-label="Blog: The Kite Runner" data-category="books">
               <div class="project-meta"><span class="project-badge">Books</span></div>
               <h3 class="project-title">The Kite Runner</h3>
               <p class="project-desc">Khaled Hosseini's debut novel weaves a tale of friendship, betrayal, and redemption set against the backdrop of a turbulent Afghanistan. A story about the weight of guilt and the courage it takes to be good again.</p>
@@ -276,7 +283,7 @@
               <div class="project-stats"><a href="blogs/the-kite-runner.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
             </article>
 
-            <article class="blog-card" aria-label="Blog: The Island of Missing Trees">
+            <article class="blog-card" aria-label="Blog: The Island of Missing Trees" data-category="books">
               <div class="project-meta"><span class="project-badge">Books</span></div>
               <h3 class="project-title">The Island of Missing Trees</h3>
               <p class="project-desc">Elif Shafak's lyrical novel tells the story of two teenagers in 1970s Cyprus, separated by war, and their daughter in present-day London who uncovers the past. Narrated in part by a fig tree — a meditation on memory, belonging, and loss.</p>
@@ -284,7 +291,7 @@
               <div class="project-stats"><a href="blogs/the-island-of-missing-trees.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
             </article>
 
-            <article class="blog-card" aria-label="Blog: Yayati">
+            <article class="blog-card" aria-label="Blog: Yayati" data-category="books">
               <div class="project-meta"><span class="project-badge">Books</span></div>
               <h3 class="project-title">Yayati</h3>
               <p class="project-desc">V. S. Khandekar's Jnanpith Award-winning Marathi novel reimagines the ancient king Yayati from the Mahabharata — a man cursed with old age who trades youth with his son, and the philosophical reckoning that follows.</p>
@@ -292,12 +299,20 @@
               <div class="project-stats"><a href="blogs/yayati.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
             </article>
 
-            <article class="blog-card" aria-label="Blog: Blog Automation Pipeline">
+            <article class="blog-card" aria-label="Blog: Blog Automation Pipeline" data-category="tech">
               <div class="project-meta"><span class="project-badge">Tech</span></div>
               <h3 class="project-title">Blog Automation Pipeline</h3>
-              <p class="project-desc">How I built an AI-powered pipeline that selects a book, generates a summary with Hugging Face, renders it into an HTML template, and publishes it to GitHub Pages — all with one command.</p>
+              <p class="project-desc">How I built an AI-powered pipeline deployed on Vercel Functions — triggered by a cron job — that selects a book, generates a summary with Hugging Face, renders it into an HTML template, and publishes it to GitHub Pages automatically.</p>
               <ul class="project-tags" role="list"><li>Node.js</li><li>Automation</li><li>Hugging Face</li><li>GitHub Pages</li></ul>
               <div class="project-stats"><a href="blogs/blog-automation.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
+
+            <article class="blog-card" aria-label="Blog: YouTube Shorts Automation" data-category="tech">
+              <div class="project-meta"><span class="project-badge">Tech</span></div>
+              <h3 class="project-title">YouTube Shorts Automation</h3>
+              <p class="project-desc">Fetch live tech news → summarise with Hugging Face AI → TTS voiceover → overlay on a Pexels stock video → upload as a YouTube Short. Two decoupled cron jobs, zero manual steps.</p>
+              <ul class="project-tags" role="list"><li>Python</li><li>Hugging Face</li><li>Pexels API</li><li>YouTube API</li></ul>
+              <div class="project-stats"><a href="blogs/youtube-shorts-automation.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
             </article>
 
             <!-- SET 2 — duplicate for seamless infinite loop -->
@@ -336,13 +351,27 @@
             <article class="blog-card" aria-hidden="true">
               <div class="project-meta"><span class="project-badge">Tech</span></div>
               <h3 class="project-title">Blog Automation Pipeline</h3>
-              <p class="project-desc">How I built an AI-powered pipeline that selects a book, generates a summary with Hugging Face, renders it into an HTML template, and publishes it to GitHub Pages — all with one command.</p>
+              <p class="project-desc">How I built an AI-powered pipeline deployed on Vercel Functions — triggered by a cron job — that selects a book, generates a summary with Hugging Face, renders it into an HTML template, and publishes it to GitHub Pages automatically.</p>
               <ul class="project-tags" role="list"><li>Node.js</li><li>Automation</li><li>Hugging Face</li><li>GitHub Pages</li></ul>
               <div class="project-stats"><a href="blogs/blog-automation.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
             </article>
 
+            <article class="blog-card" aria-hidden="true">
+              <div class="project-meta"><span class="project-badge">Tech</span></div>
+              <h3 class="project-title">YouTube Shorts Automation</h3>
+              <p class="project-desc">Fetch live tech news → summarise with Hugging Face AI → TTS voiceover → overlay on a Pexels stock video → upload as a YouTube Short. Two decoupled cron jobs, zero manual steps.</p>
+              <ul class="project-tags" role="list"><li>Python</li><li>Hugging Face</li><li>Pexels API</li><li>YouTube API</li></ul>
+              <div class="project-stats"><a href="blogs/youtube-shorts-automation.html" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 14px;">Read Blog →</a></div>
+            </article>
+
           </div>
         </div>
+
+        <!-- Load more / view all -->
+        <div class="blogs-cta">
+          <a href="blogs.html" class="btn btn-primary">View All Blogs →</a>
+        </div>
+
       </div>
     </section>
 
