@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="How I built an automated YouTube Shorts pipeline — fetching tech news, summarising with Hugging Face AI, adding TTS voiceover to a Pexels stock video, and uploading as a YouTube Short on a cron schedule." />
+  <meta name="description" content="How I built an automated YouTube Shorts pipeline — fetching tech news from NewsAPI, GNews & HackerNews, summarising with Hugging Face Llama, adding Edge TTS voiceover to a Pexels stock video, and uploading as a YouTube Short." />
   <title>Automating YouTube Shorts with AI — dev.shweta</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,11 +23,12 @@
     <div class="tn-hero-inner">
       <span class="tn-category">🎬 Automation</span>
       <h1 class="tn-title">Automated <span class="highlight">YouTube Shorts</span> from Tech News — End to End</h1>
-      <p class="tn-subtitle">Fetch real tech news → summarise with Hugging Face AI → voiceover → Pexels stock video → upload as a YouTube Short. Zero manual steps.</p>
+      <p class="tn-subtitle">Fetch real tech news from NewsAPI, GNews &amp; HackerNews → summarise with Hugging Face Llama → Edge TTS voiceover → Pexels stock video → FFmpeg merge → upload as a YouTube Short. Zero manual steps.</p>
       <div class="tn-meta">
         <span>✍ Shweta Suryavanshi</span>
         <span>📅 April 24, 2026</span>
         <span>⏱ 8 min read</span>
+        <!-- <span><a href="https://www.youtube.com/channel/UCGwpfQyQmt2HWnj9N1Z-WgQ" target="_blank" rel="noopener" style="color:inherit;">▶ View Channel</a></span> -->
       </div>
     </div>
   </header>
@@ -55,192 +56,238 @@
         recording, editing, and uploading. I wanted to close that gap entirely.
       </p>
       <p>
-        The pipeline is split into two decoupled phases. <strong>Phase 1</strong> is a data pipeline:
-        it fetches news, summarises it with AI, and stores it locally as a JSON "queue". <strong>Phase 2</strong>
-        is a media pipeline: it drains that queue, producing and uploading one YouTube Short per news item.
-        Keeping them separate means a failed upload never blocks new news from being fetched and summarised.
+        The pipeline runs as two independent npm scripts. <strong><code>npm run fetch</code></strong> is
+        the data pipeline: it pulls headlines from three sources, summarises them with AI, and writes
+        a dated JSON "queue" file. <strong><code>npm run upload</code></strong> is the media pipeline:
+        it drains that queue — producing and uploading one Short per news item. Or run
+        <code>npm run all</code> to fire both in sequence. Keeping them decoupled means a failed upload
+        never blocks new news from being queued.
       </p>
 
+      <p>
+        You can see the output of this pipeline live on the
+        <a href="https://www.youtube.com/channel/UCGwpfQyQmt2HWnj9N1Z-WgQ" target="_blank" rel="noopener"><strong> ▶ The Project Sandbox</strong></a> -
+        new tech news Shorts published automatically every few hours.
+      </p>
+
+      <!-- Project structure -->
+      <h2>Project Structure</h2>
+      <pre><code>tech-news-shorts/
+├── src/
+│   ├── index.js                  # CLI entry point
+│   ├── news/
+│   │   ├── fetcher.js            # NewsAPI + GNews + HackerNews fetcher
+│   │   ├── fetch-runner.js       # Local test runner for news fetching
+│   │   └── summarizer.js         # HuggingFace Inference API (Llama)
+│   ├── reels/
+│   │   ├── processor.js          # Orchestrates the full shorts pipeline
+│   │   ├── tts.js                # TTS: node-edge-tts → ElevenLabs → Google
+│   │   ├── pexels.js             # Pexels video downloader (title-based query)
+│   │   └── ffmpeg.js             # Audio + video merge + title overlay
+│   ├── youtube/
+│   │   ├── auth.js               # One-time OAuth2 setup (localhost callback)
+│   │   └── uploader.js           # YouTube Data API v3 upload
+│   └── utils/
+│       ├── db.js                 # JSON file database (news_YYYY-MM-DD.json)
+│       └── logger.js             # Colored timestamped logger
+├── db/                           # Auto-created: daily news JSON files
+├── output/                       # Auto-created: final .mp4 shorts
+├── .env                          # Your API keys (never commit)
+└── package.json</code></pre>
+
+      <!-- Phase 1 -->
       <h2>Phase 1 — Fetch, Summarise &amp; Store</h2>
       <p>
-        The first cron job runs every few hours. It calls two free tech-news APIs —
-        <a href="https://newsapi.org" target="_blank" rel="noopener">NewsAPI</a> and
-        <a href="https://gnews.io" target="_blank" rel="noopener">GNews</a> — filtering for the
-        <code>technology</code> category and deduplicating by article URL before doing anything else.
-        Fresh articles are then batched and sent to Hugging Face's
-        <code>facebook/bart-large-cnn</code> summarisation model to produce a 2–3 sentence plain-English
-        summary — short enough for a 45-second voiceover.
+        <code>npm run fetch</code> kicks off <code>src/news/fetcher.js</code>. It calls three sources:
+        <a href="https://newsapi.org" target="_blank" rel="noopener">NewsAPI</a>,
+        <a href="https://gnews.io" target="_blank" rel="noopener">GNews</a>, and
+        <a href="https://news.ycombinator.com/api" target="_blank" rel="noopener">HackerNews</a>
+        (no API key needed for HN). Articles are deduplicated by URL and the full article text is
+        fetched before summarisation — not just the headline snippet.
       </p>
-
-      <pre><code># src/news_fetcher.py
-import requests, json, os
-from datetime import datetime
-
-NEWS_APIS = [
-    f"https://newsapi.org/v2/top-headlines?category=technology&pageSize=10&apiKey={os.getenv('NEWS_API_KEY')}",
-    f"https://gnews.io/api/v4/top-headlines?category=technology&token={os.getenv('GNEWS_API_KEY')}",
-]
-
-def fetch_articles():
-    articles = []
-    seen_urls = set()
-    for url in NEWS_APIS:
-        for item in requests.get(url).json().get("articles", []):
-            if item["url"] not in seen_urls:
-                seen_urls.add(item["url"])
-                articles.append(item)
-    return articles</code></pre>
-
       <p>
-        Each article is summarised via the Hugging Face Inference API. The resulting records are
-        appended to a JSON file named after the current datetime (e.g. <code>2026-04-24T10-00-00.json</code>)
-        and every record gets a <code>"status": "unprocessed"</code> field. This file is the handoff
-        point between Phase 1 and Phase 2.
+        Each article is then sent to the Hugging Face Inference Router using
+        <code>meta-llama/Llama-3.3-70B-Instruct:fastest</code> to produce a concise plain-English
+        summary. Results are persisted to <code>db/news_YYYY-MM-DD.json</code>, each record tagged
+        <code>"status": "unprocessed"</code>. That file is the handoff point to Phase 2.
       </p>
 
-      <pre><code># src/summariser.py — HF Inference API
-import requests, os
+      <pre><code>// src/news/summarizer.js — HuggingFace Inference Router
+const HF_API =
+  "https://router.huggingface.co/v1/chat/completions";
 
-HF_API = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-HEADERS = {"Authorization": f"Bearer {os.getenv('HF_TOKEN')}"}
+async function summarise(text) {
+  const res = await fetch(HF_API, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: process.env.HF_MODEL ||
+             "meta-llama/Llama-3.3-70B-Instruct:fastest",
+      messages: [
+        { role: "system", content: "Summarise in 2-3 sentences." },
+        { role: "user",   content: text },
+      ],
+    }),
+  });
+  const data = await res.json();
+  return data.choices[0].message.content.trim();
+}</code></pre>
 
-def summarise(text: str) -> str:
-    payload = {"inputs": text, "parameters": {"max_length": 80, "min_length": 30}}
-    resp = requests.post(HF_API, headers=HEADERS, json=payload)
-    return resp.json()[0]["summary_text"]</code></pre>
-
-      <pre><code># src/store.py — write slug-named JSON queue file
-from datetime import datetime
-import json, pathlib
-
-def save_queue(articles: list):
-    slug = datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%S")
-    path = pathlib.Path(f"data/{slug}.json")
-    path.parent.mkdir(exist_ok=True)
-    records = [
-        {"title": a["title"], "url": a["url"],
-         "summary": a["summary"], "status": "unprocessed"}
-        for a in articles
-    ]
-    path.write_text(json.dumps(records, indent=2))
-    return path</code></pre>
-
+      <!-- Phase 2 -->
       <h2>Phase 2 — Produce &amp; Upload the Short</h2>
       <p>
-        The second cron job runs shortly after Phase 1. It scans all JSON files in <code>data/</code>
-        for records with <code>"status": "unprocessed"</code>, picks the oldest one, and runs it
-        through a three-step media pipeline: TTS → Pexels video → YouTube upload.
+        <code>npm run upload</code> runs <code>src/reels/processor.js</code>. It scans
+        <code>db/</code> for any <code>"status": "unprocessed"</code> record and pipes it through
+        a three-step media pipeline: TTS → Pexels video → FFmpeg merge → YouTube upload.
       </p>
-      <p>
-        <strong>Step A — Text-to-Speech:</strong> The summary text is converted to a <code>.mp3</code>
-        using gTTS (free, fast) or ElevenLabs (higher quality). The audio duration determines how long
-        the final video will be — the stock clip is trimmed to match.
-      </p>
-
-      <pre><code># src/tts.py
-from gtts import gTTS
-import tempfile
-
-def synthesise(text: str) -> str:
-    tts = gTTS(text=text, lang="en", slow=False)
-    tmp = tempfile.NamedTemporaryFile(suffix=".mp3", delete=False)
-    tts.save(tmp.name)
-    return tmp.name   # path to audio file</code></pre>
 
       <p>
-        <strong>Step B — Fetch a Pexels Stock Video:</strong> The Pexels Videos API is queried with
-        the keyword <code>"technology"</code> (randomised page offset so the same clip isn't reused
-        every day). The first portrait-orientation clip (aspect ratio ≥ 0.5) is downloaded — this
-        ensures the video is already close to the <code>9:16</code> Shorts format.
+        <strong>Step A — Text-to-Speech:</strong> The summary is converted to speech using
+        <code>node-edge-tts</code>, which taps Microsoft Edge's neural voices for free with no API
+        key. The default voice is <code>en-US-AriaNeural</code>; you can swap it in <code>.env</code>
+        with <code>EDGE_TTS_VOICE</code>. ElevenLabs and Google Cloud TTS are available as fallbacks
+        if those keys are present.
       </p>
 
-      <pre><code># src/pexels_client.py
-import requests, os, random, tempfile
+      <pre><code>// src/reels/tts.js — node-edge-tts (primary)
+import { EdgeTTS } from "node-edge-tts";
 
-PEXELS_API = "https://api.pexels.com/videos/search"
-HEADERS = {"Authorization": os.getenv("PEXELS_API_KEY")}
-
-def fetch_video() -> str:
-    page = random.randint(1, 20)
-    resp = requests.get(PEXELS_API,
-        headers=HEADERS,
-        params={"query": "technology", "orientation": "portrait",
-                "per_page": 5, "page": page})
-    video_url = resp.json()["videos"][0]["video_files"][0]["link"]
-    tmp = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
-    tmp.write(requests.get(video_url).content)
-    return tmp.name</code></pre>
-
-      <p>
-        <strong>Step C — Composite &amp; Upload:</strong> <code>moviepy</code> trims the stock clip to
-        the audio duration, overlays the news headline as an animated text caption, and mixes in the
-        TTS audio track. The output is a <code>1080×1920</code> <code>.mp4</code>. The YouTube Data
-        API v3 then uploads it as a Short with an auto-generated title, description, and hashtags
-        derived from the news headline. After a successful upload the record's status is flipped to
-        <code>"processed"</code> in the JSON file.
-      </p>
-
-      <pre><code># src/video_builder.py (simplified)
-from moviepy.editor import VideoFileClip, AudioFileClip, TextClip, CompositeVideoClip
-
-def build_short(video_path, audio_path, headline) -> str:
-    audio = AudioFileClip(audio_path)
-    clip  = VideoFileClip(video_path).subclip(0, audio.duration)
-    caption = (TextClip(headline, fontsize=48, color="white", font="Arial-Bold",
-                        method="caption", size=(clip.w - 80, None))
-               .set_position(("center", 0.75), relative=True)
-               .set_duration(audio.duration))
-    final = CompositeVideoClip([clip, caption]).set_audio(audio)
-    out   = video_path.replace(".mp4", "_short.mp4")
-    final.write_videofile(out, fps=30, codec="libx264",
-                          ffmpeg_params=["-vf", "scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2"])
-    return out</code></pre>
-
-      <blockquote>
-        <span class="label">// hot take</span>
-        The hardest part of this entire pipeline wasn't the AI, the video editing, or the Pexels integration —
-        it was YouTube's OAuth flow. Thirty lines of business logic, two hundred lines of auth wrangling.
-        Google's API client libraries desperately need a "just let me upload a video" mode.
-        <cite>— Shweta Suryavanshi</cite>
-      </blockquote>
-
-      <h2>Cron Scheduling on Vercel</h2>
-      <p>
-        Both phases are deployed as Vercel Serverless Functions. Phase 1 (fetch + summarise) runs at
-        <code>0 */4 * * *</code> — every 4 hours — to keep the queue topped up. Phase 2 (produce +
-        upload) runs at <code>30 */4 * * *</code> — 30 minutes after Phase 1 — giving it time to finish
-        before the upload job starts.
-      </p>
-
-      <pre><code>// vercel.json
-{
-  "crons": [
-    { "path": "/api/fetch-news",    "schedule": "0 */4 * * *" },
-    { "path": "/api/produce-short", "schedule": "30 */4 * * *" }
-  ]
+export async function synthesise(text, outPath) {
+  const tts = new EdgeTTS();
+  await tts.ttsPromise(text, outPath, {
+    voice: process.env.EDGE_TTS_VOICE || "en-US-AriaNeural",
+  });
+  return outPath; // .mp3
 }</code></pre>
 
       <p>
-        All secrets — <code>NEWS_API_KEY</code>, <code>GNEWS_API_KEY</code>, <code>HF_TOKEN</code>,
-        <code>PEXELS_API_KEY</code>, and the YouTube OAuth refresh token — are stored as Vercel
-        environment variables. The <code>data/</code> JSON files are committed back to the repo via
-        the GitHub Contents API after each Phase 1 run, so Phase 2 always has access to the latest
-        queue even in a stateless serverless environment.
+        <strong>Step B — Fetch a Pexels Stock Video:</strong> <code>src/reels/pexels.js</code>
+        derives a search keyword from the article title (e.g. "AI chip ban" → "technology AI") and
+        queries the Pexels Videos API with <code>orientation=portrait</code>. The clip is downloaded
+        and cached locally so the same query doesn't re-download on retry.
       </p>
 
+      <pre><code>// src/reels/pexels.js (simplified)
+export async function fetchVideo(query, destPath) {
+  const res = await fetch(
+    `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&orientation=portrait&per_page=5&page=${randomPage()}`,
+    { headers: { Authorization: process.env.PEXELS_API_KEY } }
+  );
+  const { videos } = await res.json();
+  const link = videos[0].video_files[0].link;
+  await downloadFile(link, destPath);
+  return destPath;
+}</code></pre>
+
+      <p>
+        <strong>Step C — FFmpeg Merge &amp; Upload:</strong> <code>src/reels/ffmpeg.js</code> uses
+        the bundled <code>ffmpeg-static</code> binary (no system install needed) to scale the clip
+        to <code>1080×1920</code> (9:16), loop it to match the exact TTS audio duration, overlay the
+        headline as a white caption near the bottom, and merge the audio track. The YouTube Data API
+        v3 then uploads the <code>.mp4</code> as a Short; on success the record is flipped to
+        <code>"processed"</code>.
+      </p>
+
+      <pre><code>// src/reels/ffmpeg.js — scale + loop + overlay + merge
+import ffmpegPath from "ffmpeg-static";
+import { execFile } from "child_process";
+
+export function buildShort({ videoPath, audioPath, headline, outPath }) {
+  return new Promise((resolve, reject) => {
+    execFile(ffmpegPath, [
+      "-stream_loop", "-1", "-i", videoPath,
+      "-i", audioPath,
+      "-vf", [
+        "scale=1080:1920:force_original_aspect_ratio=decrease",
+        "pad=1080:1920:(ow-iw)/2:(oh-ih)/2",
+        `drawtext=text='${headline}':fontcolor=white:fontsize=48:` +
+          "x=(w-text_w)/2:y=h*0.75:line_spacing=8",
+      ].join(","),
+      "-c:v", "libx264", "-c:a", "aac",
+      "-shortest", outPath,
+    ], (err) => (err ? reject(err) : resolve(outPath)));
+  });
+}</code></pre>
+
+      <blockquote>
+        <span class="label">// hot take</span>
+        The hardest part wasn't the AI, the video editing, or the Pexels integration —
+        it was YouTube's OAuth flow. Thirty lines of business logic, two hundred lines of auth
+        wrangling. Google's API client libraries desperately need a "just let me upload a video" mode.
+        <cite>— Shweta Suryavanshi</cite>
+      </blockquote>
+
+      <!-- API Keys -->
+      <h2>API Keys &amp; Environment</h2>
+      <p>Copy <code>.env.example</code> to <code>.env</code> and fill in:</p>
+      <pre><code># Required
+NEWS_API_KEY=        # newsapi.org — 100 req/day free
+GNEWS_API_KEY=       # gnews.io — 100 req/day free
+HUGGINGFACE_API_KEY= # huggingface.co/settings/tokens — free
+PEXELS_API_KEY=      # pexels.com/api — free
+
+# TTS (optional overrides — node-edge-tts needs no key)
+EDGE_TTS_VOICE=en-US-AriaNeural
+ELEVENLABS_API_KEY=
+GOOGLE_TTS_KEY=
+
+# YouTube OAuth
+YOUTUBE_CLIENT_ID=
+YOUTUBE_CLIENT_SECRET=
+YOUTUBE_REFRESH_TOKEN=  # generated by: npm run auth</code></pre>
+      <p>
+        HackerNews requires no key and is always active. If YouTube credentials are absent, the
+        finished <code>.mp4</code> is saved to <code>output/</code> for manual upload to
+        <a href="https://www.youtube.com/channel/UCGwpfQyQmt2HWnj9N1Z-WgQ" target="_blank" rel="noopener">the channel</a>.
+      </p>
+
+      <!-- YouTube OAuth setup -->
+      <h2>YouTube OAuth2 Setup</h2>
+      <ol>
+        <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">Google Cloud Console → Credentials</a> and create an <strong>OAuth 2.0 Client ID</strong> (Desktop app).</li>
+        <li>Add <code>http://localhost:3000/oauth2callback</code> to Authorized redirect URIs.</li>
+        <li>Paste <code>YOUTUBE_CLIENT_ID</code> and <code>YOUTUBE_CLIENT_SECRET</code> into <code>.env</code>.</li>
+        <li>Set the OAuth consent screen to <strong>External</strong> and add your Gmail as a test user.</li>
+        <li>Run <code>npm run auth</code>, open the printed URL, authorise, then copy the printed <code>YOUTUBE_REFRESH_TOKEN</code> back into <code>.env</code>.</li>
+      </ol>
+
+      <!-- NPM scripts -->
+      <h2>Running the Pipeline</h2>
+      <pre><code># Install (ffmpeg + ffprobe bundled — no system install needed)
+npm install
+
+# One-time YouTube OAuth
+npm run auth
+
+# Fetch news + summarise → writes db/news_YYYY-MM-DD.json
+npm run fetch
+
+# Generate videos + upload → drains unprocessed records
+npm run upload
+
+# Or run both in sequence
+npm run all
+
+# Test individual stages without uploading
+npm run test:fetch   # news fetching + summarisation
+npm run test:tts     # TTS audio → output/tts-test/
+npm run test:vid     # full video → output/vid-test/</code></pre>
+
+      <!-- What's next -->
       <h2>What's Next</h2>
       <p>
-        Right now the caption is just the raw headline overlaid as static text. The next step is
-        word-by-word caption animation — synced to the TTS audio timestamps — which makes Shorts
-        significantly more watchable and improves retention. I'd also like to add a thumbnail
-        generator: take the headline, render it on a branded background with Pillow, and set it as
-        the YouTube video thumbnail via the API.
+        Right now the caption is a static <code>drawtext</code> overlay. The next step is
+        word-by-word animated captions synced to the TTS audio timestamps — which dramatically
+        improves watch-time on Shorts. I also want to add a Pillow-based thumbnail generator:
+        render the headline on a branded background and push it via the YouTube thumbnail API.
       </p>
       <p>
-        Longer term, the same two-phase architecture maps onto Instagram Reels and TikTok with
-        minimal changes: swap the upload module, adjust the output resolution slightly, and add a
-        second entry to <code>vercel.json</code>. The news fetching, AI summarisation, TTS, and
-        Pexels video steps stay identical.
+        The same two-phase architecture maps directly onto Instagram Reels and TikTok: swap
+        <code>src/youtube/uploader.js</code>, adjust the output resolution, done. The news fetch,
+        Llama summarisation, Edge TTS, and Pexels steps stay identical.
       </p>
 
       <!-- Sources -->
@@ -249,24 +296,26 @@ def build_short(video_path, audio_path, headline) -> str:
         <ul>
           <li><a href="https://newsapi.org/docs" target="_blank" rel="noopener">NewsAPI — Documentation</a></li>
           <li><a href="https://gnews.io/docs" target="_blank" rel="noopener">GNews API — Documentation</a></li>
-          <li><a href="https://huggingface.co/facebook/bart-large-cnn" target="_blank" rel="noopener">Hugging Face — facebook/bart-large-cnn</a></li>
+          <li><a href="https://news.ycombinator.com/api" target="_blank" rel="noopener">HackerNews API — Unofficial Docs</a></li>
+          <li><a href="https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct" target="_blank" rel="noopener">Hugging Face — meta-llama/Llama-3.3-70B-Instruct</a></li>
+          <li><a href="https://www.npmjs.com/package/node-edge-tts" target="_blank" rel="noopener">node-edge-tts — npm</a></li>
           <li><a href="https://www.pexels.com/api/documentation/#videos-search" target="_blank" rel="noopener">Pexels API — Videos Search</a></li>
           <li><a href="https://developers.google.com/youtube/v3/guides/uploading_a_video" target="_blank" rel="noopener">YouTube Data API v3 — Uploading a Video</a></li>
-          <li><a href="https://zulko.github.io/moviepy/" target="_blank" rel="noopener">MoviePy — Video Editing in Python</a></li>
-          <li><a href="https://vercel.com/docs/cron-jobs" target="_blank" rel="noopener">Vercel Cron Jobs — Official Docs</a></li>
+          <li><a href="https://www.youtube.com/channel/UCGwpfQyQmt2HWnj9N1Z-WgQ" target="_blank" rel="noopener">YouTube Channel — Shweta Suryavanshi</a></li>
         </ul>
       </div>
 
       <!-- Tags -->
       <div class="tn-tags">
-        <span class="tn-tag">Python</span>
+        <span class="tn-tag">Node.js</span>
         <span class="tn-tag">Automation</span>
         <span class="tn-tag">Hugging Face</span>
+        <span class="tn-tag">Llama</span>
         <span class="tn-tag">YouTube API</span>
         <span class="tn-tag">Pexels API</span>
-        <span class="tn-tag">MoviePy</span>
-        <span class="tn-tag">Vercel</span>
-        <span class="tn-tag">Cron Jobs</span>
+        <span class="tn-tag">Edge TTS</span>
+        <span class="tn-tag">FFmpeg</span>
+        <span class="tn-tag">HackerNews</span>
       </div>
 
     </article>
