@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="How I built CloudForge — a full-stack visual cloud infrastructure design tool with ReactFlow, OpenAPI codegen, Terraform reverse-engineering, and a context-aware GPT-4.1 assistant." />
+  <title>CloudForge: Visual Cloud Infrastructure Design — dev.shweta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/tech-news.css" />
+
+  <style>
+    /* ── Video embed ───────────────────────────────────────── */
+    .tn-video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      margin: 2rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tn-video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ── Stack table ───────────────────────────────────────── */
+    .tn-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.82rem;
+      margin: 1.6rem 0;
+    }
+
+    .tn-table th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.45);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+
+    .tn-table td {
+      padding: 0.55rem 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.8);
+      vertical-align: top;
+    }
+
+    .tn-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tn-table td:first-child {
+      color: rgba(255, 255, 255, 0.42);
+      white-space: nowrap;
+    }
+
+    .tn-table td code {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
+
+    /* ── Callout / aside ───────────────────────────────────── */
+    .tn-callout {
+      background: rgba(0, 212, 255, 0.05);
+      border-left: 3px solid #00d4ff;
+      padding: 1rem 1.25rem;
+      margin: 1.6rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .tn-callout p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .tn-callout strong {
+      color: #00d4ff;
+    }
+
+    /* ── Demo link button ──────────────────────────────────── */
+    .tn-demo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.35);
+      color: #00d4ff;
+      padding: 0.55rem 1.1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .tn-demo-btn:hover {
+      background: rgba(0, 212, 255, 0.18);
+      border-color: rgba(0, 212, 255, 0.6);
+    }
+
+    /* ── Architecture diagram ──────────────────────────────── */
+    .tn-arch {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.6rem 0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ░░ NAV — do not change ░░ -->
+  <nav class="tn-nav">
+    <a href="../index.html#blogs" class="tn-nav-back"><span>←</span> Back to Portfolio</a>
+    <span class="tn-nav-logo">dev.shweta / tech</span>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <header class="tn-hero">
+    <div class="tn-hero-inner">
+
+      <span class="tn-category">☁ Cloud · 🔧 Tooling</span>
+
+      <h1 class="tn-title">CloudForge: I Built the Cloud Design Tool I Wish Existed</h1>
+
+      <p class="tn-subtitle">Visual drag-and-drop infrastructure design that outputs production-ready Terraform HCL —
+        with Terraform reverse-engineering, multi-cloud support, and a context-aware AI assistant baked in from day one.
+      </p>
+
+      <div class="tn-meta">
+        <span><span class="dot"></span> Live</span>
+        <span>✍ Shweta Suryavanshi</span>
+        <span>📅 June 14, 2026</span>
+        <span>⏱ 7 min read</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ░░ MAIN CONTENT ░░ -->
+  <main class="tn-body">
+
+    <!-- ── TL;DR ────────────────────────────────────────────── -->
+    <div class="tn-tldr">
+      <p class="tn-tldr-label">// TL;DR — key takeaways</p>
+      <ul>
+        <li><strong>Visual-first IaC:</strong> ReactFlow v12 canvas with 32 AWS / Azure / GCP components — drag,
+          connect, configure, export.</li>
+        <li><strong>Terraform reverse-engineer:</strong> Upload a <code>.tf</code> file and CloudForge AST-parses it
+          into a fully laid-out diagram with detected dependencies.</li>
+        <li><strong>Multi-format export:</strong> One visual model → Terraform HCL, CloudFormation, Kubernetes
+          manifests, or plain YAML.</li>
+        <li><strong>OpenAPI-driven codegen:</strong> Orval generates fully-typed React Query hooks + Zod schemas from
+          the spec — zero integration drift.</li>
+        <li><strong>Context-aware AI:</strong> GPT-4.1 assistant knows your current canvas components and connections,
+          not just generic cloud advice.</li>
+      </ul>
+    </div>
+
+    <!-- ── DEMO VIDEO ────────────────────────────────────────── -->
+    <a class="tn-demo-btn" href="https://www.youtube.com/watch?v=xrKxh3KzBEk" target="_blank" rel="noopener">
+      ▶ Watch the full demo video
+    </a>
+
+    <div class="tn-video-wrap">
+      <iframe src="https://www.youtube.com/embed/xrKxh3KzBEk" title="CloudForge demo video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- ── ARTICLE ──────────────────────────────────────────── -->
+    <article class="tn-article">
+
+      <h2>The Problem: Four Tools, Zero Cohesion</h2>
+      <p>Every cloud architecture project I worked on followed the same fragmented playbook: sketch a diagram in
+        Excalidraw, write the actual IaC in VS Code, run validation scripts in the terminal, then try to keep the
+        diagram and the code even vaguely in sync as the architecture evolved. It's 2026 and we're still copy-pasting
+        CIDR blocks between a drawing app and a <code>.tf</code> file like it's 2015.</p>
+      <p>The problem isn't any single tool — it's that there's no single workspace. Architects think visually, but
+        infrastructure lives in code. CloudForge was built to close that loop: a visual canvas where every drag, drop,
+        and connection <em>is</em> the infrastructure definition, and deployment-ready code is a side-effect of the
+        design.</p>
+
+      <h2>Architecture: How the Pieces Fit Together</h2>
+      <p>CloudForge is a full-stack TypeScript monorepo managed with <code>npm workspaces</code>. The repo splits
+        cleanly into <code>artifacts/</code> (deployable apps) and <code>lib/</code> (shared packages), which kept
+        cross-package imports explicit and prevented the usual monorepo spaghetti.</p>
+
+      <div class="tn-arch">
+        artifacts/<br>
+        ├── cloudforge/ # React + Vite web app → /<br>
+        ├── api-server/ # Express 5 API → /api<br>
+        └── cloudforge-mobile/ # Expo (iOS + Android) → /mobile<br>
+        <br>
+        lib/<br>
+        ├── api-spec/ # OpenAPI spec (single source of truth)<br>
+        ├── api-client-react/ # Generated React Query hooks (Orval)<br>
+        ├── api-zod/ # Generated Zod schemas (Orval)<br>
+        └── db/ # Drizzle ORM schema + migrations
+      </div>
+
+      <p>The guiding principle was <strong>code-generate everything that could be generated</strong>. The
+        <code>api-spec</code> package owns the OpenAPI definition. Running
+        <code>npm run codegen -w @workspace/api-spec</code> regenerates fully-typed React Query hooks and Zod validation
+        schemas via <strong>Orval</strong>. The result: frontend types are never manually maintained, and if the API
+        changes, the TypeScript compiler catches every mismatch at build time — not at 2am in production.
+      </p>
+
+      <table class="tn-table">
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Technology</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monorepo</td>
+            <td><code>npm workspaces</code></td>
+            <td>Simple, native, no Nx/Turborepo overhead</td>
+          </tr>
+          <tr>
+            <td>Language</td>
+            <td>TypeScript 5.9 · Node 24</td>
+            <td>End-to-end type safety; native ESM</td>
+          </tr>
+          <tr>
+            <td>Frontend</td>
+            <td>React + Vite + Tailwind v4</td>
+            <td>Fast HMR; CSS-first Tailwind architecture</td>
+          </tr>
+          <tr>
+            <td>Canvas</td>
+            <td><code>@xyflow/react</code> (ReactFlow v12)</td>
+            <td>Battle-tested graph primitives, extensible node API</td>
+          </tr>
+          <tr>
+            <td>API</td>
+            <td>Express 5</td>
+            <td>Stable, familiar, async-first error handling</td>
+          </tr>
+          <tr>
+            <td>Database</td>
+            <td>PostgreSQL + Drizzle ORM</td>
+            <td>Type-safe queries without the Prisma magic-proxy</td>
+          </tr>
+          <tr>
+            <td>Validation</td>
+            <td>Zod + drizzle-zod</td>
+            <td>Single schema, runtime + compile-time safety</td>
+          </tr>
+          <tr>
+            <td>API codegen</td>
+            <td>Orval</td>
+            <td>OpenAPI → React Query + Zod, zero manual sync</td>
+          </tr>
+          <tr>
+            <td>AI</td>
+            <td>GPT-4.1 via Replit AI</td>
+            <td>Context-aware prompting with canvas state</td>
+          </tr>
+          <tr>
+            <td>Mobile</td>
+            <td>Expo (React Native)</td>
+            <td>Single codebase, iOS + Android, Expo Go compatible</td>
+          </tr>
+          <tr>
+            <td>Build</td>
+            <td>esbuild</td>
+            <td>Sub-second API server builds</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>The Canvas: ReactFlow as Infrastructure Primitive</h2>
+      <p>The visual canvas is the core of CloudForge. I chose <code>@xyflow/react</code> (ReactFlow v12) because it
+        treats nodes and edges as first-class React state — each cloud component is just a custom React node with its
+        own config panel, and connections between nodes map 1:1 to resource dependencies in the generated IaC. The
+        component registry covers 32 services: EC2, VPC, Lambda, RDS, S3, EKS on AWS; AKS, Azure Functions on Azure;
+        Cloud Run, BigQuery on GCP — each with provider-specific config fields and a validation profile.</p>
+      <p>State management was the real challenge at scale. A large architecture diagram can have dozens of nodes with
+        deeply nested config objects, real-time validation overlays, and undo/redo history — all of which need to stay
+        in sync without re-rendering the entire canvas on every keystroke. The solution was colocating node state inside
+        ReactFlow's internal store, lifting only the "committed" architecture state to React Query for API persistence,
+        and debouncing writes aggressively.</p>
+
+      <pre><code># The visual connection model maps directly to Terraform dependency graph:
+
+resource "aws_vpc" "app_vpc" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  tags = { Name = "CloudForge-VPC", ManagedBy = "CloudForge" }
+}
+
+resource "aws_subnet" "public_subnet" {
+  vpc_id            = aws_vpc.app_vpc.id   # ← drawn as an edge on the canvas
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.app_vpc.id              # ← another edge
+  tags   = { Name = "CloudForge-IGW" }
+}</code></pre>
+
+      <div class="tn-callout">
+        <p><strong>Design insight:</strong> Every edge drawn on the canvas carries semantic meaning — it encodes a
+          <code>depends_on</code> or attribute reference in the output IaC. Visually drawing a line from a subnet to a
+          VPC <em>is</em> writing <code>vpc_id = aws_vpc.app_vpc.id</code>. This is what makes the diagram and the code
+          the same artifact.
+        </p>
+      </div>
+
+      <h2>Terraform Reverse-Engineering: The Hard Part</h2>
+      <p>Importing an existing <code>.tf</code> file and turning it into a clean canvas layout was the hardest
+        engineering problem in this project. Terraform HCL is designed to be written by humans, not parsed by tools:
+        resources use string interpolation for references (<code>"${aws_vpc.main.id}"</code>), modules abstract entire
+        sub-graphs, locals create intermediate values, and <code>for_each</code> meta-arguments can instantiate multiple
+        resources from a single block. None of this maps cleanly to a node-edge graph without genuine semantic
+        understanding.</p>
+      <p>My approach: build a lightweight HCL AST parser that walks the resource blocks, extracts attribute values, and
+        runs a reference-detection pass to find implicit dependencies (string interpolation patterns,
+        <code>depends_on</code> blocks, <code>count</code>/<code>for_each</code> iterators). Detected resources are
+        matched against the 32-component registry by type, unrecognized resources fall back to a generic "Custom
+        Resource" node. Then a force-directed auto-layout algorithm (with provider-grouping hints) positions the nodes
+        so AWS, Azure, and GCP resources cluster visually. It's not perfect on pathological Terraform, but it handles
+        the 80% case — real-world single-provider infra — cleanly.
+      </p>
+
+      <blockquote>
+        <span class="label">// hot take</span>
+        Visual IaC tools failed in the past because they tried to <em>replace</em> code with diagrams. The right
+        abstraction is the opposite: make code the canonical truth and let the diagram be a live, editable view of it.
+        CloudForge succeeds because exporting HCL is a read operation on the canvas state — there's no translation layer
+        that can drift.
+        <cite>— Shweta Suryavanshi</cite>
+      </blockquote>
+
+      <h2>The AI Assistant: Context-Aware, Not Generic</h2>
+      <p>The floating AI chat panel is powered by GPT-4.1 via Replit AI Integrations. The key design decision was
+        <em>what context to pass</em>. Generic "ask AI about cloud architecture" tools give you textbook answers.
+        CloudForge serializes the current project state — component types, provider labels, connection topology, and
+        active validation errors — and prepends it as a structured prompt context before every message. The result:
+        "Should I add a NAT gateway?" gets an answer that looks at your actual canvas, not a five-paragraph essay about
+        NAT gateways in general.
+      </p>
+      <p>Prompt orchestration lives in the <code>/api/ai/chat</code> route on the Express server, not the client. This
+        keeps the context-assembly logic server-side, makes it easy to iterate on prompt structure without app
+        redeployments, and avoids leaking the OpenAI API key to the browser.</p>
+
+      <h2>Multi-Format Export: One Model, Four Outputs</h2>
+      <p>The export engine (<code>POST /api/export</code>) takes the canvas node-edge graph and a <code>format</code>
+        parameter, then walks the same dependency-ordered graph to emit the target syntax. Each cloud component has a
+        code-generator interface with four implementations: <code>toTerraform()</code>, <code>toCloudFormation()</code>,
+        <code>toKubernetes()</code>, <code>toYAML()</code>. Supporting multiple outputs from one visual model forces you
+        to build a genuinely provider-agnostic internal representation — which paid dividends when adding new
+        components, since you only write the graph model once and all four exporters just work.
+      </p>
+
+      <h2>What's Coming Next</h2>
+      <p>The roadmap is AI-heavy. I'm building automated cost estimation that annotates components with monthly spend
+        projections directly on the canvas, security hardening suggestions that flag specific misconfigurations with
+        remediation steps, and a resiliency scorer that grades the architecture's high-availability posture. The endgame
+        is turning the canvas into a live architecture health dashboard, not just a design tool.</p>
+      <p>On the collaboration side: Google-Docs-style real-time multi-user editing via WebSockets, GitOps pipeline
+        integration (push to a branch, CI runs <code>terraform plan</code>), and infrastructure drift detection that
+        re-imports the live state and highlights canvas divergences. The vision is CloudForge as the operating system
+        for cloud architecture — design, validate, deploy, and monitor, all in one place.</p>
+
+      <!-- ── SOURCES ─────────────────────────────────────── -->
+      <div class="tn-sources">
+        <p class="tn-sources-label">// sources &amp; further reading</p>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=xrKxh3KzBEk" target="_blank" rel="noopener">CloudForge — Full
+              Demo Video (YouTube)</a></li>
+          <li><a href="https://reactflow.dev/" target="_blank" rel="noopener">@xyflow/react (ReactFlow v12)
+              Documentation</a></li>
+          <li><a href="https://developer.hashicorp.com/terraform/language" target="_blank" rel="noopener">HashiCorp
+              Terraform HCL Language Reference</a></li>
+          <li><a href="https://orm.drizzle.team/" target="_blank" rel="noopener">Drizzle ORM Documentation</a></li>
+          <li><a href="https://orval.dev/" target="_blank" rel="noopener">Orval — OpenAPI to React Query + Zod
+              Codegen</a></li>
+        </ul>
+      </div>
+
+      <!-- Tags -->
+      <div class="tn-tags">
+        <span class="tn-tag">DevOps</span>
+        <span class="tn-tag">Terraform</span>
+        <span class="tn-tag">ReactFlow</span>
+        <span class="tn-tag">Multi-Cloud</span>
+        <span class="tn-tag">TypeScript</span>
+        <span class="tn-tag">OpenAPI</span>
+      </div>
+
+    </article>
+
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="tn-footer">
+    <p>Written by <a href="../index.html">Shweta Suryavanshi</a> · June 14, 2026</p>
+  </footer>
+
+</body>
+
+</html>
