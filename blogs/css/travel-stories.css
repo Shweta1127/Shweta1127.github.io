@@ -365,3 +365,108 @@ a:hover { color: var(--accent); }
   .ts-snapshot ul { grid-template-columns: 1fr; }
   .ts-practical table td:first-child { width: auto; }
 }
+
+/* ── MEDIA GALLERY ─────────────────────────────────────────────── */
+.ts-gallery {
+  margin: 2.2rem 0;
+}
+.ts-gallery-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+
+/* Portrait grid: 3 columns on desktop, each cell uses 4:5 ratio */
+.ts-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.ts-gallery-grid figure {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-highlight);
+  border: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Portrait image slot — 4:5 aspect ratio */
+.ts-gallery-grid figure .ts-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--bg-highlight);
+}
+.ts-gallery-grid figure .ts-img-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.ts-gallery-grid figure .ts-img-wrap img:hover { transform: scale(1.04); }
+
+/* Video slot — 9:16 portrait ratio */
+.ts-gallery-grid .ts-video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: #000;
+}
+.ts-gallery-grid video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ts-gallery-grid figcaption {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 0.45rem 0.75rem 0.55rem;
+  font-family: var(--font-mono);
+  line-height: 1.4;
+}
+
+/* Wide — spans all columns (used for single hero shots & videos) */
+.ts-gallery-grid .wide {
+  grid-column: 1 / -1;
+}
+/* Wide images use 3:2 landscape-ish ratio to not be too tall */
+.ts-gallery-grid .wide .ts-img-wrap {
+  aspect-ratio: 3 / 2;
+}
+/* Wide videos keep 16:9 */
+.ts-gallery-grid .wide .ts-video-wrap {
+  aspect-ratio: 16 / 9;
+}
+
+/* 2-column on tablet */
+@media (max-width: 720px) {
+  .ts-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 1-column on mobile */
+@media (max-width: 480px) {
+  .ts-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .ts-gallery-grid .wide .ts-img-wrap {
+    aspect-ratio: 4 / 5;
+  }
+}
