@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Keynotes and technical deep dives from Linux Foundation's Open Source Summit India 2026 — featuring Linus Torvalds, Rust in Linux, eBPF, and sovereign AI." />
+  <title>The Open Source Blueprint: OSS India 2026 — dev.shweta</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/tech-meets.css" />
+</head>
+
+<body>
+
+  <!-- ░░ NAV ░░ -->
+  <nav class="tm-nav">
+    <a href="../index.html#blogs" class="tm-nav-back"><span>←</span> Back to Portfolio</a>
+    <span class="tm-nav-logo">dev.shweta / meets</span>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <header class="tm-hero">
+    <div class="tm-hero-inner">
+      <span class="tm-category">🎤 Conference</span>
+      <h1 class="tm-title">The Open Source Blueprint: Keynotes & Technical Deep Dives from OSS India 2026</h1>
+      <p class="tm-subtitle">From Linus Torvalds' grounding take on AI code-generation to kernel reachability, eBPF
+        packet routing, and the transition from code to context.</p>
+
+      <div class="tm-meta-author">
+        <div class="tm-avatar">S</div>
+        <div class="tm-meta-info">
+          <div class="tm-author-name">Shweta Suryavanshi</div>
+          <div class="tm-meta-details">
+            <span>📅 June 21, 2026</span>
+            <span>⏱ 12 min read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ░░ MAIN CONTENT ░░ -->
+  <main class="tm-body">
+
+    <!-- ── EVENT DETAILS CARD ────────────────────────────────── -->
+    <div class="tm-event-card">
+      <!-- <p class="tm-event-card-title">// event snapshot</p> -->
+      <div class="tm-event-grid">
+        <div class="tm-event-item">
+          <span class="tm-event-label">Event</span>
+          <span class="tm-event-value">Open Source Summit India 2026</span>
+        </div>
+        <div class="tm-event-item">
+          <span class="tm-event-label">Date</span>
+          <span class="tm-event-value">June 16-17, 2026</span>
+        </div>
+        <div class="tm-event-item">
+          <span class="tm-event-label">Venue</span>
+          <span class="tm-event-value">Mumbai, India</span>
+        </div>
+        <div class="tm-event-item">
+          <span class="tm-event-label">Website</span>
+          <span class="tm-event-value"><a href="https://events.linuxfoundation.org/open-source-summit-india/"
+              target="_blank" rel="noopener">LF Events Page</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ARTICLE BODY ──────────────────────────────────────── -->
+    <article class="tm-article">
+
+      <h2>The Keynotes: Setting the Paradigm for Open Source in 2026</h2>
+      <figure class="tm-post-image">
+        <img src="meet-assets/ossummit/linus.jpeg" alt="Linus Torvalds at Open Source Summit India 2026"
+          loading="lazy" />
+        <figcaption class="tm-post-image-caption">Linus Torvalds on the main stage at Open Source Summit India 2026
+        </figcaption>
+      </figure>
+      <p>Recently, I had the opportunity to attend the Open Source Summit organized by the Linux Foundation. The energy
+        in Bengaluru was electric, serving as a powerful reminder of how India is rapidly shifting from a primary
+        consumer of open-source software to an engineering powerhouse defining global digital leadership. Over the
+        course of two jam-packed days, the morning keynotes laid out a cohesive vision of where our industry is heading,
+        highlighting major architectural shifts across infrastructure, security, and community-driven technology.</p>
+
+      <p>The absolute highlight of Day 1 was watching <strong>Linus Torvalds</strong> in conversation with Dirk Hohndel.
+        Linus' take on open-source contributions, security, and cutting through the AI hype was incredibly grounding.
+        While he openly admitted to using AI to generate the initial structural scaffolding and boilerplate logic for
+        his own side projects to speed up micro-prototyping, he drew a firm, absolute boundary when it comes to
+        critical, core systems: <em>AI-generated Pull Requests directed at the Linux Kernel are strictly rejected.</em>
+        Autoregressive models lack true logical, semantic awareness, meaning human review, deterministic testing, and
+        domain expertise remain the true gatekeepers of production systems.</p>
+
+      <p>Other keynotes expanded on these themes. Arpit Joshipura highlighted the explosion of upstream code
+        contributions originating from India, moving from simple integrations to nation-scale Digital Public
+        Infrastructure (DPI) like Digi Yatra and decentralized trust networks. On Day 2, Manish Dixit (SVP of Product at
+        the Linux Foundation) argued that <em>"the moat has moved from code to context."</em> In an era of AI-generated
+        boilerplate, application code itself is a commodity; the true competitive edge and security parameters lie in
+        operational runtime data and data pipeline integrity. We also saw Greg Kroah-Hartman provide a thrilling update
+        on Rust in the Linux Kernel, explaining how memory-safe driver design at compile-time is preventing entire
+        classes of security vulnerabilities, and Roberto Luna-Rojas on AWS dissecting the industry's massive migration
+        to Valkey to reclaim database efficiency.</p>
+
+      <!-- Comparative Theme Table -->
+      <p>To stitch these major themes together, it is useful to see how the foundations laid on Day 1 evolved directly
+        into the engineering breakthroughs presented on Day 2:</p>
+
+      <div style="overflow-x: auto; margin: 32px 0; border: 1px solid var(--border); border-radius: var(--radius);">
+        <table
+          style="width: 100%; border-collapse: collapse; font-family: var(--font-display); font-size: 0.9rem; text-align: left;">
+          <thead>
+            <tr style="background: var(--bg-soft); border-bottom: 1px solid var(--border);">
+              <th style="padding: 12px 16px; font-weight: 600;">Core Theme</th>
+              <th style="padding: 12px 16px; font-weight: 600;">Day 1 Keynote Foundation</th>
+              <th style="padding: 12px 16px; font-weight: 600;">Day 2 Breakthrough Counterpart</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 12px 16px; font-weight: 600; color: var(--accent);">Artificial Intelligence</td>
+              <td style="padding: 12px 16px; color: var(--text-muted);">Linus' warning against unverified,
+                auto-generated PR slop.</td>
+              <td style="padding: 12px 16px; color: var(--text-muted);">Moving to open-weight governance and maximizing
+                token efficiency.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 12px 16px; font-weight: 600; color: var(--accent);">Security &amp; Architecture</td>
+              <td style="padding: 12px 16px; color: var(--text-muted);">Transitioning nation-scale architectures into
+                audited public infrastructure.</td>
+              <td style="padding: 12px 16px; color: var(--text-muted);">Hardening the core kernel with Rust and
+                utilizing Reachability Analysis.</td>
+            </tr>
+            <tr>
+              <td style="padding: 12px 16px; font-weight: 600; color: var(--accent);">Platform Efficiency</td>
+              <td style="padding: 12px 16px; color: var(--text-muted);">Intelligent platform-level guardrails and
+                scaling configurations.</td>
+              <td style="padding: 12px 16px; color: var(--text-muted);">Bypassing legacy databases for Valkey and
+                shifting to GraalVM Java.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Day 1 Breakdowns: Performance, Security, &amp; Cloud-Native Infrastructure</h2>
+
+      <h3>1. Performance-by-Design: Embedding Intelligent Scaling &amp; Guardrails</h3>
+      <p><strong>Speakers:</strong> Josephine Eskaline Joyce &amp; Tanya Shanker (IBM India)</p>
+      <p>Traditional platform engineering treats day-two scaling and cost efficiency as afterthoughts, causing
+        environment sprawl. Platform teams can build automated ML scaling guardrails (using tools like KEDA) directly
+        into internal portals to sustain absolute performance without skyrocketing cloud bills.</p>
+
+      <h3>2. Security: Why it HAS to be Open Source</h3>
+      <p><strong>Speaker:</strong> Mike Bursell (Confidential Computing Expert)</p>
+      <p>Proprietary security tools require blind trust, leaving organizations vulnerable to hidden bugs or negligence.
+        True zero-trust relies on auditable code and Confidential Computing hardware-isolated enclaves (like Intel
+        SGX/AMD SEV) governed by verified open-source stacks like Enarx.</p>
+
+      <h3>3. Decoding the Open-Source Blueprint for India’s Sovereign AI Future</h3>
+      <p><strong>Speakers:</strong> Vincent Caldeira (Red Hat) &amp; Abhishek Kumar Singh (NxtGen Cloud Technologies)
+      </p>
+      <p>Relying on public cloud LLM APIs risks data sovereignty. This talk laid out a localized infrastructure
+        blueprint combining OpenStack, Kubernetes GPU orchestration, and high-throughput vLLM runtimes (utilizing
+        PagedAttention) to serve open-weight models in secure, air-gapped environments.</p>
+
+      <h3>4. CI/CD, APIs, and Scaling: Modern Cloud-Native Dev</h3>
+      <p><strong>Speakers:</strong> Aditya Soni (SailPoint) &amp; Aditi Gupta (JioStar India)</p>
+      <p>Decentralized microservices introduce latency and CI/CD queue delays. Developers should leverage dynamic,
+        cloud-native runner platforms (Tekton or Argo Workflows) that scale to zero post-build, coupled with
+        rate-limiting API gateways and progressive canary delivery.</p>
+
+      <h3>5. Recipes and Runtimes: Making Sense of Containers in 2026</h3>
+      <p><strong>Speaker:</strong> Soundarya Rangarajan (Canonical)</p>
+      <p>The container ecosystem has moved beyond a basic Docker daemon. Modern platforms require balancing low-level
+        and high-level runtimes (runc/containerd), virtual-machine-grade sandboxing (Kata Containers, Firecracker
+        MicroVMs), and ultra-lightweight WebAssembly (Wasm) edge runtimes.</p>
+
+      <h3>6. How Kubernetes Networking Really Works: A Packet's Journey</h3>
+      <p><strong>Speakers:</strong> Ashwin Sriram (Deutsche Bank) &amp; M Viswanath Sai (IIT BHU)</p>
+      <p>Kubernetes networking is notoriously complex to debug. Packet flow transitions from simple virtual ethernet
+        pairs on a single host to encapsulated overlay networks across hosts, with modern platforms shifting to
+        kernel-level eBPF routing (Cilium) to bypass slow iptables rules.</p>
+
+      <pre><code>[Pod A Namespace] ──> (veth pair) ──> [Host Network Namespace] ──> [eBPF / CNI Routing] ──> [Physical Interface]</code></pre>
+
+      <!-- Key Takeaways Box -->
+      <div class="tm-takeaway-box">
+        <p class="tm-takeaway-title">// key learnings</p>
+        <ul class="tm-takeaway-list">
+          <li><strong>Platform Design:</strong> Automate predictive scaling using telemetry and KEDA to avoid resource
+            sprawl and cut costs.</li>
+          <li><strong>Verifiable Security:</strong> Zero-trust demands absolute auditability; open-source code and
+            Confidential Computing (Intel SGX/AMD SEV) are non-negotiable.</li>
+          <li><strong>Sovereign Infrastructure:</strong> Localize AI strategies using OpenStack, Kubernetes GPU
+            orchestration, and high-throughput vLLM runtimes.</li>
+          <li><strong>Infrastructure Observability:</strong> Shift Kubernetes networking from slow iptables routing to
+            kernel-level eBPF for near-native speeds.</li>
+        </ul>
+      </div>
+
+      <blockquote>
+        "AI-generated PRs directed at core systems like the Linux Kernel are strictly rejected. AI lacks logical,
+        semantic awareness and verification capabilities, meaning human review, deterministic testing, and domain
+        expertise remain the true gatekeepers of production software."
+        <cite>— Linus Torvalds, Open Source Summit India 2026</cite>
+      </blockquote>
+
+      <h2>Day 2 Keynotes: The Moat Has Moved — Context, Languages &amp; Performance</h2>
+
+      <p>Day 2 opened with a sharp reframe from Manish Dixit (Linux Foundation) — when LLMs can generate boilerplate on demand, code itself is no longer the moat; your operational runtime context and data pipeline integrity are. Aayush Bhatnagar (Jio Platforms) extended this into telecom, showing how 6G and AI-native routing are converging on cloud-native open architectures that handle dynamic packet scaling without proprietary lock-in. Roberto Luna-Rojas (AWS) made the cost case for Valkey — ditching restrictive licensing and channelling those savings back into product. Geeta Gurnani (IBM India) pushed for governed AI over black-box endpoints, arguing that open weights, data lineage, and auditable pipelines are the only path to trustworthy enterprise outcomes. Greg Kroah-Hartman closed with the most technically satisfying update of the day — Rust's compile-time memory safety is steadily eliminating entire bug classes from the Linux kernel, making buffer overflows and use-after-free errors a problem of the past.</p>
+
+      <h2>Day 2 Breakdowns: AI Fuzzing, CVE Reachability, &amp; Smart Code Verification</h2>
+
+      <h3>1. Breaking Valkey on Purpose: Chaos Fuzzing with Agentic AI</h3>
+      <p><strong>Speaker:</strong> Renuka Uttarala (Amazon)</p>
+      <p>Brute-force fuzzing struggles to identify deep race conditions in high-performance stores like Valkey. By
+        integrating autonomous AI agents that monitor code coverage and memory usage in real-time, teams can dynamically
+        generate valid API mutations to stress test hidden edge cases.</p>
+
+      <h3>2. Pruning Kernel CVEs with Code Reachability Analysis</h3>
+      <p><strong>Speakers:</strong> Ashish Bijlani (Ossillate Inc.) &amp; Chandni B (Independent Contributor)</p>
+      <p>Security teams waste hundreds of hours patching unused drivers. By using reachability analysis to map whether a
+        vulnerable function within a kernel module can actually be triggered by user-space workloads, organizations can
+        eliminate up to 70% of security patch alert fatigue.</p>
+
+      <h3>3. Jakarta EE/Java: Hyper-Performance and Efficiency</h3>
+      <p><strong>Speaker:</strong> Daniel Oh (IBM)</p>
+      <p>Java's startup footprint is optimized for modern serverless clusters using native Ahead-of-Time (AOT)
+        compilation (GraalVM and Quarkus) and CRaC (Coordinated Restore at Checkpoint). This drops startup latency from
+        seconds down to milliseconds.</p>
+
+      <h3>4. The Process of Exploration in AI Research: A Researcher's Perspective</h3>
+      <p><strong>Speaker:</strong> Bibekananda Hati (Experquick.org)</p>
+      <p>Treating AI adoption as a standard software sprint leads to brittle integrations. Engineering cultures must
+        instead embrace an experimental research lifestyle, setting up local evaluation loops (Eval pipelines) to
+        benchmark models against specific business logic.</p>
+
+      <h3>5. Confidently Wrong: When AI Cannot Catch Its Own Bugs</h3>
+      <p><strong>Speaker:</strong> Shailja Thakur (IBM Research Bangalore)</p>
+      <p>LLMs excel at generating code but lack semantic awareness, meaning they often fail to recognize their own
+        logical bugs. Software pipelines must rely on deterministic static analysis tools (SonarQube, Semgrep) and human
+        expertise rather than LLM intuition.</p>
+
+      <h3>6. Writing for Machines: How to Capture Your Project’s Vibe and Survive AI Slop</h3>
+      <p><strong>Speakers:</strong> Kaushlendra Pratap Singh &amp; Shaheem Azmal M (Siemens)</p>
+      <p>To survive the deluge of AI slop, documentation must be scannable, structured, and context-rich for RAG
+        embedders, while preserving the project's unique voice, prerequisites, and real-world edge cases for human
+        developers.</p>
+
+      <h3>7. JSON Wastes 60% of Your AI LLM Tokens — Toon Fixes That</h3>
+      <p><strong>Speaker:</strong> Vitthal Mirji</p>
+      <p>JSON's verbose syntax consumes a significant percentage of LLM token limits, driving up cost and latency.
+        Serializing structured outputs via **Toon** (a hyper-lean format optimized for models) slashes data payload
+        overhead and token consumption by up to 60%.</p>
+
+
+      <h2>The Exhibition Floor: Booth Highlights &amp; Micro-Demos</h2>
+      <p>Beyond the formal sessions, the exhibition floor was packed with interactive booths and engaging discussions
+        with engineering teams. Some standout highlights from my conversations include:</p>
+      <ul>
+        <li><strong>NPCI (National Payments Corporation of India):</strong> Had a fascinating conversation about how
+          their open-source infrastructure handles millions of concurrent UPI payment requests daily in a highly secure
+          manner with extreme consistency.</li>
+        <li><strong>GraphQL:</strong> Explored the journey of GraphQL, looking at how it evolved from a simple internal
+          data fetching requirement at Meta to a global open-source project powering APIs across modern industries.</li>
+        <li><strong>NudgeBee:</strong> Got a demo of NudgeBee, an AI assistant and AIOps automation builder for SRE, CloudOps, and support teams — built to automate incident response, runbooks, and operational workflows.</li>
+        <li><strong>Valkey:</strong> Dived into the active community booth of Valkey, learning about its enhanced
+          multi-threaded I/O model, memory optimizations, and built-in modules like ValkeyBloom, vector similarity
+          search, and full-text search (FTS) that are accelerating its adoption in major enterprises.</li>
+      </ul>
+
+      <!-- ── PHOTO GALLERY ───────────────────────────────────── -->
+      <!-- <div class="tm-gallery">
+        <p class="tm-gallery-title">// snapshots from the floor</p>
+        <div class="tm-gallery-grid">
+          <div class="tm-gallery-item">
+            <img src="meet-assets/ossummit/linus.jpeg" alt="Linus Torvalds at Open Source Summit India 2026"
+              style="width: 100%; height: auto; display: block; border-bottom: 1px solid var(--border);" />
+            <div class="tm-gallery-caption">Linus Torvalds speaking with Dirk Hohndel on the Main Stage, discussing AI
+              limitations and kernel code security.</div>
+          </div>
+          <div class="tm-gallery-item">
+            <div class="tm-gallery-img-placeholder">
+              ⚡ Networking &amp; Sandbox Booths
+            </div>
+            <div class="tm-gallery-caption">The bustling exhibition hall, filled with open-source project booths,
+              micro-demos, and lightning talks.</div>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- ── RESOURCES ────────────────────────────────────────── -->
+      <div class="tm-resources">
+        <p class="tm-resources-title">// links &amp; references</p>
+        <ul class="tm-resources-list">
+          <li><a href="https://events.linuxfoundation.org/open-source-summit-india/" target="_blank" rel="noopener">Open
+              Source Summit India 2026 Official Website</a></li>
+          <li><a href="https://github.com/valkey-io/valkey" target="_blank" rel="noopener">Valkey — Open Source
+              Key-Value Store on GitHub</a></li>
+          <li><a href="https://keda.sh/" target="_blank" rel="noopener">KEDA — Kubernetes Event-driven Autoscaling
+              Docs</a></li>
+          <li><a href="https://cilium.io/" target="_blank" rel="noopener">Cilium — eBPF-based Networking, Observability,
+              and Security</a></li>
+        </ul>
+      </div>
+
+      <!-- Tags -->
+      <div class="tm-tags">
+        <span class="tm-tag">Open Source</span>
+        <span class="tm-tag">OSS India 2026</span>
+        <span class="tm-tag">Linux Foundation</span>
+        <span class="tm-tag">Kubernetes</span>
+        <span class="tm-tag">AI</span>
+        <span class="tm-tag">Platform Engineering</span>
+      </div>
+
+    </article>
+
+    <!-- ── AUTHOR BIO CARD ─────────────────────────────────────── -->
+    <div class="tm-author-bio">
+      <div class="tm-author-bio-avatar">S</div>
+      <div class="tm-author-bio-details">
+        <div class="tm-author-bio-name">Shweta Suryavanshi</div>
+        <div class="tm-author-bio-text">
+          Software Developer and designer writing about web engineering, automation, and communities. Building
+          open-source projects and documenting the journey.
+        </div>
+        <div class="tm-author-bio-socials">
+          <a href="../index.html">Portfolio</a>
+          <a href="https://github.com/Shweta1127" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="tm-footer">
+    <p>Written by <a href="../index.html">Shweta Suryavanshi</a> · June 21, 2026</p>
+  </footer>
+
+</body>
+
+</html>

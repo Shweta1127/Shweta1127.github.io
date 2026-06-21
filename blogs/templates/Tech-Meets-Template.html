@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║        TECH MEETS & CONFERENCES BLOG TEMPLATE — dev.shweta       ║
+║                                                                  ║
+║  HOW TO USE WITH AN LLM:                                         ║
+║  Give this file to your LLM along with the prompt below.         ║
+║  Replace every {{PLACEHOLDER}} with the real content.            ║
+║                                                                  ║
+║  PROMPT TO GIVE YOUR LLM:                                        ║
+║  ─────────────────────────────────────────────────────────────   ║
+║  "I want to write a blog post about a tech conference / meetup   ║
+║   I attended. The event is '{{EVENT_NAME}}'.                     ║
+║   Fill in the HTML template below for my personal portfolio.     ║
+║   Write a clean, reflective, Medium-style article containing:     ║
+║     - An engaging title and a 1-2 sentence subtitle.             ║
+║     - Event facts (dates, location, organizer, website link).    ║
+║     - 3 detailed sections:                                       ║
+║       1. The Vibe (first impressions, size, energy, venue).       ║
+║       2. Key Tech Takeaways (major talks, trends, libraries).    ║
+║       3. Networking & Community (people met, cool projects).     ║
+║     - One highlight quote or statement from a speaker.            ║
+║     - 4 key takeaway bullet points.                              ║
+║     - A visual gallery placeholder with descriptive captions.     ║
+║     - 3-4 links to resources, slides, or repositories.           ║
+║     - 4-5 relevant tags.                                         ║
+║   Keep the tone professional, curious, and human — sharing real   ║
+║   learnings and personal observations from the event."           ║
+║                                                                  ║
+║  SAVE THE OUTPUT AS:  blogs/your-event-slug.html                 ║
+║  Then add a card in index.html blogs section pointing to it.     ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <title>{{ARTICLE_TITLE}} — dev.shweta</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  
+  <!-- Rel path to CSS. Note: if saving in blogs/ folder, update this to: css/tech-meets.css -->
+  <link rel="stylesheet" href="../css/tech-meets.css" />
+</head>
+<body>
+
+  <!-- ░░ NAV — do not change ░░ -->
+  <nav class="tm-nav">
+    <a href="../../index.html#blogs" class="tm-nav-back"><span>←</span> Back to Portfolio</a>
+    <span class="tm-nav-logo">dev.shweta / meets</span>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <header class="tm-hero">
+    <div class="tm-hero-inner">
+      <!-- Category. Examples: 🎤 Conference · ⚡ Meetup · 🚀 Hackathon · 🌐 Workshop -->
+      <span class="tm-category">{{CATEGORY_EMOJI}} {{CATEGORY_LABEL}}</span>
+      
+      <h1 class="tm-title">{{ARTICLE_TITLE}}</h1>
+      <p class="tm-subtitle">{{SUBTITLE}}</p>
+
+      <!-- Medium-Style Author Header -->
+      <div class="tm-meta-author">
+        <div class="tm-avatar">S</div>
+        <div class="tm-meta-info">
+          <div class="tm-author-name">Shweta Suryavanshi</div>
+          <div class="tm-meta-details">
+            <span>📅 {{DATE}}</span>                   <!-- e.g. June 21, 2026 -->
+            <span>⏱ {{READ_TIME}} min read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ░░ MAIN CONTENT ░░ -->
+  <main class="tm-body">
+
+    <!-- ── EVENT DETAILS CARD ────────────────────────────────── -->
+    <div class="tm-event-card">
+      <p class="tm-event-card-title">// event snapshot</p>
+      <div class="tm-event-grid">
+        <div class="tm-event-item">
+          <span class="tm-event-label">Event</span>
+          <span class="tm-event-value">{{EVENT_NAME}}</span>
+        </div>
+        <div class="tm-event-item">
+          <span class="tm-event-label">Date</span>
+          <span class="tm-event-value">{{EVENT_DATE}}</span>
+        </div>
+        <div class="tm-event-item">
+          <span class="tm-event-label">Venue</span>
+          <span class="tm-event-value">{{EVENT_LOCATION}}</span>
+        </div>
+        <div class="tm-event-item">
+          <span class="tm-event-label">Website</span>
+          <span class="tm-event-value"><a href="{{EVENT_WEBSITE_URL}}" target="_blank" rel="noopener">{{EVENT_WEBSITE_LABEL}}</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ARTICLE BODY ──────────────────────────────────────── -->
+    <article class="tm-article">
+
+      <h2>{{SECTION_1_HEADING}}</h2>
+      <!-- Section 1: The Vibe / First impressions, venue setup, atmosphere, scale -->
+      <p>{{SECTION_1_PARAGRAPH_1}}</p>
+      <p>{{SECTION_1_PARAGRAPH_2}}</p>
+
+      <h2>{{SECTION_2_HEADING}}</h2>
+      <!-- Section 2: Core learnings / specific talks or topics you attended -->
+      <p>{{SECTION_2_PARAGRAPH_1}}</p>
+      <p>{{SECTION_2_PARAGRAPH_2}}</p>
+      <p>{{SECTION_2_PARAGRAPH_3}}</p> <!-- optional -->
+
+      <!-- Takeaways Box -->
+      <div class="tm-takeaway-box">
+        <p class="tm-takeaway-title">// key learnings</p>
+        <ul class="tm-takeaway-list">
+          <li>{{TAKEAWAY_1}}</li>
+          <li>{{TAKEAWAY_2}}</li>
+          <li>{{TAKEAWAY_3}}</li>
+          <li>{{TAKEAWAY_4}}</li> <!-- optional -->
+        </ul>
+      </div>
+
+      <!-- Pull quote / Memorable quote from a speaker -->
+      <blockquote>
+        "{{QUOTE}}"
+        <cite>— {{QUOTE_AUTHOR}}</cite>
+      </blockquote>
+
+      <h2>{{SECTION_3_HEADING}}</h2>
+      <!-- Section 3: Networking / People met, demos seen, community feelings -->
+      <p>{{SECTION_3_PARAGRAPH_1}}</p>
+      <p>{{SECTION_3_PARAGRAPH_2}}</p>
+
+      <!-- ── PHOTO GALLERY ───────────────────────────────────── -->
+      <div class="tm-gallery">
+        <p class="tm-gallery-title">// snapshots from the floor</p>
+        <div class="tm-gallery-grid">
+          <div class="tm-gallery-item">
+            <!-- Add real image tag like <img src="assets/image1.jpg" alt="Description" /> -->
+            <div class="tm-gallery-img-placeholder">
+              [ Photo 1 Placeholder ]
+            </div>
+            <div class="tm-gallery-caption">{{GALLERY_CAPTION_1}}</div>
+          </div>
+          <div class="tm-gallery-item">
+            <div class="tm-gallery-img-placeholder">
+              [ Photo 2 Placeholder ]
+            </div>
+            <div class="tm-gallery-caption">{{GALLERY_CAPTION_2}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── RESOURCES ────────────────────────────────────────── -->
+      <div class="tm-resources">
+        <p class="tm-resources-title">// links &amp; references</p>
+        <ul class="tm-resources-list">
+          <li><a href="{{RESOURCE_1_URL}}" target="_blank" rel="noopener">{{RESOURCE_1_LABEL}}</a></li>
+          <li><a href="{{RESOURCE_2_URL}}" target="_blank" rel="noopener">{{RESOURCE_2_LABEL}}</a></li>
+          <li><a href="{{RESOURCE_3_URL}}" target="_blank" rel="noopener">{{RESOURCE_3_LABEL}}</a></li>
+          <li><a href="{{RESOURCE_4_URL}}" target="_blank" rel="noopener">{{RESOURCE_4_LABEL}}</a></li> <!-- optional -->
+        </ul>
+      </div>
+
+      <!-- Tags -->
+      <div class="tm-tags">
+        <span class="tm-tag">{{TAG_1}}</span>
+        <span class="tm-tag">{{TAG_2}}</span>
+        <span class="tm-tag">{{TAG_3}}</span>
+        <span class="tm-tag">{{TAG_4}}</span> <!-- optional -->
+        <span class="tm-tag">{{TAG_5}}</span> <!-- optional -->
+      </div>
+
+    </article>
+
+    <!-- ── AUTHOR BIO CARD ─────────────────────────────────────── -->
+    <div class="tm-author-bio">
+      <div class="tm-author-bio-avatar">S</div>
+      <div class="tm-author-bio-details">
+        <div class="tm-author-bio-name">Shweta Suryavanshi</div>
+        <div class="tm-author-bio-text">
+          Software Developer and designer writing about web engineering, automation, and communities. Building open-source projects and documenting the journey.
+        </div>
+        <div class="tm-author-bio-socials">
+          <a href="../../index.html">Portfolio</a>
+          <a href="https://github.com/Shweta1127" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ░░ FOOTER — update date only ░░ -->
+  <footer class="tm-footer">
+    <p>Written by <a href="../../index.html">Shweta Suryavanshi</a> · {{DATE}}</p>
+  </footer>
+
+</body>
+</html>
+
+<!--
+═══════════════════════════════════════════════════════════
+  CHECKLIST BEFORE PUBLISHING
+═══════════════════════════════════════════════════════════
+  [ ] All {{PLACEHOLDERS}} replaced with real content
+  [ ] Relative assets / links updated:
+        - Change: "../../index.html" to "../index.html"
+        - Change: "../css/tech-meets.css" to "css/tech-meets.css"
+  [ ] Remove optional fields if unused
+        (e.g., TAKEAWAY_4, GALLERY_ITEM_2, RESOURCE_4, TAG_4/5)
+  [ ] File saved as: blogs/your-event-slug.html
+        (use lowercase, hyphens — e.g. jsconf-india-2026.html)
+  [ ] Add a new <article class="blog-card"> in index.html and blogs.html
+        inside the .blogs-grid / .blogs-track div
+  [ ] Test the "Back to Portfolio" link works
+═══════════════════════════════════════════════════════════
+
+  FULL LLM PROMPT (copy-paste ready):
+═══════════════════════════════════════════════════════════
+  I attended a tech conference / meetup called "EVENT_NAME".
+  Fill in this HTML template to create a clean, minimalist
+  Medium-style blog post for my portfolio website.
+  
+  Use a clear, informative, and community-minded developer tone.
+  Write:
+    - A descriptive title and a 1-2 sentence subtitle / hook
+    - Event facts (date, venue, website link)
+    - Section 1 "The Vibe" — 2 paragraphs describing the arrival,
+      venue, atmosphere, and energy of the event
+    - Section 2 "Key Tech Learnings" — 2-3 paragraphs detailing the
+      standout talks, workshops, technologies, and concepts
+    - 3-4 bullet takeaways summarising the key learnings
+    - One memorable speaker quote or slide statement with author attribution
+    - Section 3 "People & Connections" — 2 paragraphs about the networking,
+      demos, and conversations you had
+    - 2-3 captions for the photo gallery
+    - 3-4 real resource links (e.g., official site, talk slides, repositories)
+    - 4-5 relevant tags
+    - A short meta description (under 160 characters)
+    - Estimated read time (word count ÷ 200, round up)
+
+  Replace all {{PLACEHOLDER}} values. Keep HTML intact.
+═══════════════════════════════════════════════════════════
+-->
